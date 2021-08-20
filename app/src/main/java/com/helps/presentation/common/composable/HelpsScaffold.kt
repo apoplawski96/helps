@@ -10,7 +10,7 @@ import com.helps.presentation.HelpsBottomNavScreen
 fun HelpsScaffold(
     navController: NavController,
     bottomNavItems: List<HelpsBottomNavScreen> = listOf(),
-    topBar: (@Composable () -> Unit)? = { HelpsTopBar(navController)},
+    topBar: (@Composable () -> Unit)? = { HelpsTopBar()},
     bottomBar: (@Composable () -> Unit)? = { HelpsBottomNav(navController, bottomNavItems) },
     content: @Composable (PaddingValues) -> Unit,
 ) {

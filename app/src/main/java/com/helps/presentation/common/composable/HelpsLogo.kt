@@ -7,7 +7,7 @@ import androidx.compose.ui.res.painterResource
 import com.helps.R
 
 @Composable
-fun HelpsLogo(modifier: Modifier) {
+fun HelpsLogo(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.helps_logo),
         contentDescription = "Helps logo",

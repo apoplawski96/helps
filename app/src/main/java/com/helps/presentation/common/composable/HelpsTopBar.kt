@@ -7,26 +7,53 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 
 @Composable
-fun HelpsTopBar(navController: NavController) {
+fun HelpsTopBar(statusBarHeight: Dp = 30.dp) {
+    val actionBarHeight = 50.dp
+    val topBarHeight = statusBarHeight + actionBarHeight
+
     TopAppBar(
-        modifier = Modifier.height(74.dp),
-        contentPadding = PaddingValues(8.dp),
-        elevation = 0.dp
+        elevation = 0.dp,
+        modifier = Modifier.height(topBarHeight)
     ) {
+        Column {
+            StatusBarPlaceholder(height = statusBarHeight)
+            ActionBar(height = actionBarHeight)
+        }
+    }
+}
+
+@Composable
+private fun StatusBarPlaceholder(height: Dp) {
+    Spacer(modifier = Modifier
+        .height(height)
+        .fillMaxWidth())
+}
+
+@Composable
+private fun ActionBar(height: Dp) {
+    Box(modifier = Modifier
+        .height(height)
+        .fillMaxWidth()
+        .padding(vertical = 8.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.Bottom
+            horizontalArrangement = Arrangement.Start
         ) {
             BackButton {}
-            HelpsLogo(modifier = Modifier.width(64.dp))
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            HelpsLogo(modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp))
         }
     }
 }
@@ -34,6 +61,12 @@ fun HelpsTopBar(navController: NavController) {
 @Composable
 private fun BackButton(onClick: () -> Unit) {
     IconButton(onClick = onClick) {
-        Icon(imageVector = Icons.Filled.ChevronLeft, contentDescription = "Back button")
+        Icon(imageVector = Icons.Filled.ChevronLeft, contentDescription = "Back button", modifier = Modifier.fillMaxSize())
     }
+}
+
+@Preview
+@Composable
+private fun HelpsTopBarPreview() {
+    HelpsTopBar(statusBarHeight = 24.dp)
 }
