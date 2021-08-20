@@ -1,4 +1,4 @@
-package com.helps.presentation.common
+package com.helps.presentation
 
 import androidx.navigation.compose.NamedNavArgument
 
@@ -17,6 +17,7 @@ object HelpsDestinations {
 
     val startScreen = StartScreen
     val guestScreen = GuestScreen
+    val createAccountScreen = CreateAccountScreen
 }
 
 object StartScreen : HelpsScreen {
@@ -31,6 +32,14 @@ object GuestScreen : HelpsScreen {
 
     override val route: String
         get() = "guest_screen"
+    override val arguments: List<NamedNavArgument>
+        get() = listOf()
+}
+
+object CreateAccountScreen : HelpsScreen {
+
+    override val route: String
+        get() = "create_account_screen"
     override val arguments: List<NamedNavArgument>
         get() = listOf()
 }

@@ -1,17 +1,17 @@
-package com.helps.presentation.guest
+package com.helps.presentation.auth.guest
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.helps.presentation.common.composable.HelpsButtonWhite
+import com.helps.presentation.common.composable.HelpsButtonSecondary
 import com.helps.presentation.common.composable.HelpsMottoText
 import com.helps.presentation.common.composable.HelpsScaffold
 import com.helps.presentation.common.composable.HelpsTextField
-import com.helps.presentation.common.theme.HelpsThemeGreen
 
 @Composable
 fun HelpsGuestScreen(navController: NavController) {
@@ -22,7 +22,7 @@ fun HelpsGuestScreen(navController: NavController) {
 
 @Composable
 private fun HelpsGuestScreenContent() {
-    Surface(color = HelpsThemeGreen) {
+    Surface(color = MaterialTheme.colors.surface) {
         var usernameText by remember { mutableStateOf("") }
         var phoneNumberText by remember { mutableStateOf("") }
         Column(
@@ -32,14 +32,14 @@ private fun HelpsGuestScreenContent() {
         ) {
             Spacer(modifier = Modifier.height(128.dp))
             HelpsMottoText(text = "Use it as Guest")
-            HelpsTextField(usernameText = usernameText, label = "Username") {
+            HelpsTextField(text = usernameText, label = "Username") {
                 usernameText = it
             }
-            HelpsTextField(usernameText = phoneNumberText, label = "Phone number") {
+            HelpsTextField(text = phoneNumberText, label = "Phone number") {
                 phoneNumberText = it
             }
             Spacer(modifier = Modifier.height(64.dp))
-            HelpsButtonWhite(label = "Get in") {
+            HelpsButtonSecondary(label = "Get in") {
 
             }
         }

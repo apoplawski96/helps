@@ -9,8 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.helps.presentation.common.HelpsDestinations
-import com.helps.presentation.guest.HelpsGuestScreen
+import com.helps.presentation.HelpsDestinations
+import com.helps.presentation.auth.guest.HelpsGuestScreen
+import com.helps.presentation.auth.user.HelpsCreateAccountScreen
 import com.helps.presentation.start.HelpsStartScreen
 
 @Composable
@@ -37,6 +38,10 @@ fun HelpsNavHost() {
             builder = this,
             navController = navController
         )
+        helpsCreateAccountScreen(
+            builder = this,
+            navController = navController
+        )
     }
 }
 
@@ -59,5 +64,16 @@ private fun helpsGuestScreen(
         route = HelpsDestinations.guestScreen.route
     ) {
         HelpsGuestScreen(navController = navController)
+    }
+}
+
+private fun helpsCreateAccountScreen(
+    builder: NavGraphBuilder,
+    navController: NavController
+) {
+    builder.composable(
+        route = HelpsDestinations.createAccountScreen.route
+    ) {
+        HelpsCreateAccountScreen(navController = navController)
     }
 }

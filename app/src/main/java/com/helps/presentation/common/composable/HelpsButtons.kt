@@ -3,34 +3,38 @@ package com.helps.presentation.common.composable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.helps.presentation.common.theme.HelpsThemeGreen
-import com.helps.presentation.common.theme.HelpsThemeWhite
 
 @Composable
-fun HelpsButtonGreen(label: String, onClick: () -> Unit) {
-    HelpsButton(label = label, onClick = onClick, variant = HelpsButtonVariant.GREEN)
+fun HelpsButtonPrimary(label: String, onClick: () -> Unit) {
+    HelpsButton(label = label, onClick = onClick, variant = HelpsButtonVariant.PRIMARY)
 }
 
 @Composable
-fun HelpsButtonWhite(label: String, onClick: () -> Unit) {
-    HelpsButton(label = label, onClick = onClick, variant = HelpsButtonVariant.WHITE)
+fun HelpsButtonSecondary(label: String, onClick: () -> Unit) {
+    HelpsButton(label = label, onClick = onClick, variant = HelpsButtonVariant.SECONDARY)
 }
 
 @Composable
 private fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButtonVariant) {
     val buttonColors: HelpsButtonColors = when (variant) {
-        HelpsButtonVariant.GREEN -> HelpsButtonColors(HelpsThemeGreen, HelpsThemeWhite)
-        HelpsButtonVariant.WHITE -> HelpsButtonColors(HelpsThemeWhite, HelpsThemeGreen)
+        HelpsButtonVariant.PRIMARY -> HelpsButtonColors(
+            background = MaterialTheme.colors.primary,
+            content = MaterialTheme.colors.secondary
+        )
+        HelpsButtonVariant.SECONDARY -> HelpsButtonColors(
+            background = MaterialTheme.colors.secondary,
+            content = MaterialTheme.colors.primary
+        )
     }
 
     Button(
@@ -49,6 +53,6 @@ private fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButton
 private data class HelpsButtonColors(val background: Color, val content: Color)
 
 private enum class HelpsButtonVariant {
-    GREEN,
-    WHITE;
+    PRIMARY,
+    SECONDARY;
 }

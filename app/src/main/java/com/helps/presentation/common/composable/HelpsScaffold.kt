@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.helps.presentation.common.HelpsBottomNavScreen
+import com.helps.presentation.HelpsBottomNavScreen
 
 @Composable
 fun HelpsScaffold(
