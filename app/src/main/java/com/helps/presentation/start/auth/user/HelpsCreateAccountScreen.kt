@@ -1,4 +1,4 @@
-package com.helps.presentation.auth.user
+package com.helps.presentation.start.auth.user
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -13,34 +13,22 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HelpsTopBar(statusBarHeight: Dp = 30.dp) {
-    val actionBarHeight = 50.dp
-    val topBarHeight = statusBarHeight + actionBarHeight
-
+fun HelpsTopBar() {
     TopAppBar(
         elevation = 0.dp,
-        modifier = Modifier.height(topBarHeight)
     ) {
-        Column {
-            StatusBarPlaceholder(height = statusBarHeight)
-            ActionBar(height = actionBarHeight)
-        }
+        ActionBar()
     }
 }
 
 @Composable
-private fun StatusBarPlaceholder(height: Dp) {
-    Spacer(modifier = Modifier
-        .height(height)
-        .fillMaxWidth())
-}
-
-@Composable
-private fun ActionBar(height: Dp) {
-    Box(modifier = Modifier
-        .height(height)
-        .fillMaxWidth()
-        .padding(vertical = 8.dp)) {
+private fun ActionBar() {
+    Box(
+        modifier = Modifier
+            .height(50.dp)
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Start
@@ -51,9 +39,11 @@ private fun ActionBar(height: Dp) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Start
         ) {
-            HelpsLogo(modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp))
+            HelpsLogo(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(64.dp)
+            )
         }
     }
 }
@@ -61,12 +51,16 @@ private fun ActionBar(height: Dp) {
 @Composable
 private fun BackButton(onClick: () -> Unit) {
     IconButton(onClick = onClick) {
-        Icon(imageVector = Icons.Filled.ChevronLeft, contentDescription = "Back button", modifier = Modifier.fillMaxSize())
+        Icon(
+            imageVector = Icons.Filled.ChevronLeft,
+            contentDescription = "Back button",
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
 @Preview
 @Composable
 private fun HelpsTopBarPreview() {
-    HelpsTopBar(statusBarHeight = 24.dp)
+    HelpsTopBar()
 }

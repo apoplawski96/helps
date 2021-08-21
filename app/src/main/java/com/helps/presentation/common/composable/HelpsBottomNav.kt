@@ -1,49 +1,60 @@
 package com.helps.presentation.common.composable
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.helps.presentation.HelpsBottomNavScreen
+import com.helps.presentation.HelpsBottomNavRoot
+import com.helps.presentation.HelpsDestinations
 
 @Composable
 fun HelpsBottomNav(
-    navController: NavController,
-    items: List<HelpsBottomNavScreen>
+    navController: NavController
 ) {
-    BottomNavigation {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
-        items.forEach { screen ->
+    HelpsBottomNavigationBar(currentDestination = currentDestination) {
+        onBottomNavItemClicked(navController, it)
+    }
+}
+
+@Composable
+private fun HelpsBottomNavigationBar(
+    currentDestination: NavDestination?,
+    onBottomNavClicked: (HelpsBottomNavRoot) -> Unit
+) {
+    BottomNavigation(
+        modifier = Modifier.background(MaterialTheme.colors.secondary)
+    ) {
+        HelpsDestinations.bottomNavigationScreens.forEach { screen ->
             BottomNavigationItem(
                 label = { Text(text = screen.label) },
                 selected = isRouteSelected(screen, currentDestination),
-                onClick = { onBottomNavItemClicked(navController, screen) },
-                // TODO - replace icons
-                icon = { Icon(Icons.Filled.Favorite, contentDescription = screen.label) }
+                onClick = { onBottomNavClicked(screen) },
+                icon = { Icon(imageVector = screen.icon, contentDescription = screen.label) }
             )
         }
     }
 }
 
 private fun isRouteSelected(
-    destination: HelpsBottomNavScreen,
+    destination: HelpsBottomNavRoot,
     currentDestination: NavDestination?,
-): Boolean = currentDestination?.hierarchy?.any { it.route == destination.route } == true
+) = currentDestination?.hierarchy?.any { it.route == destination.route } == true
 
 private fun onBottomNavItemClicked(
     navController: NavController,
-    destination: HelpsBottomNavScreen,
+    destination: HelpsBottomNavRoot,
 ) {
     navController.navigate(destination.route) {
         popUpTo(navController.graph.findStartDestination().id) {
@@ -52,4 +63,13 @@ private fun onBottomNavItemClicked(
         launchSingleTop = true
         restoreState = true
     }
+}
+
+@Composable
+@Preview
+private fun HelpsBottomNavPreview() {
+    HelpsBottomNavigationBar(
+        currentDestination = null,
+        onBottomNavClicked = { }
+    )
 }

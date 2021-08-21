@@ -1,4 +1,4 @@
-package com.helps.presentation.start
+package com.helps.presentation.start.welcome
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -15,11 +15,11 @@ import com.helps.presentation.common.composable.HelpsLogo
 import com.helps.presentation.common.composable.HelpsMottoText
 
 @Composable
-fun HelpsStartScreen(
+fun HelpsWelcomeScreen(
     navController: NavController
 ) {
     Surface(color = MaterialTheme.colors.surface) {
-        HelpsStartScreenContent(
+        HelpsWelcomeScreenContent(
             navigateToUserScreen = { navController.navigate(route = HelpsDestinations.createAccountScreen.route) },
             navigateToGuestScreen = { navController.navigate(route = HelpsDestinations.guestScreen.route) }
         )
@@ -27,7 +27,7 @@ fun HelpsStartScreen(
 }
 
 @Composable
-private fun HelpsStartScreenContent(
+private fun HelpsWelcomeScreenContent(
     navigateToUserScreen: () -> Unit = {},
     navigateToGuestScreen: () -> Unit = {}
 ) {
@@ -53,8 +53,8 @@ private fun HelpsStartScreenContent(
 
 @Preview
 @Composable
-private fun HelpsStartScreenContentPreview() {
+private fun HelpsWelcomeScreenContentPreview() {
     Surface(color = MaterialTheme.colors.background) {
-        HelpsStartScreenContent()
+        HelpsWelcomeScreenContent()
     }
 }
