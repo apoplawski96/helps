@@ -8,48 +8,59 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HelpsTopBar() {
+fun HelpsTopBar(withBackNavigation: Boolean) {
     TopAppBar(
         elevation = 0.dp,
+        backgroundColor = Color.Transparent
     ) {
-        ActionBar()
+        ActionBar(withBackNavigation)
     }
 }
 
 @Composable
-private fun ActionBar() {
+private fun ActionBar(withBackNavigation: Boolean) {
     Box(
         modifier = Modifier
             .height(50.dp)
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            BackButton {}
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            HelpsLogo(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(64.dp)
-            )
-        }
+        HelpsLogoOverlay()
+        if (withBackNavigation) BackNavigationOverlay()
     }
 }
 
 @Composable
-private fun BackButton(onClick: () -> Unit) {
+private fun BackNavigationOverlay() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
+    ) {
+        BackNavigationIcon {}
+    }
+}
+
+@Composable
+private fun HelpsLogoOverlay() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
+    ) {
+        HelpsLogo(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp)
+        )
+    }
+}
+
+@Composable
+private fun BackNavigationIcon(onClick: () -> Unit) {
     IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Filled.ChevronLeft,
@@ -62,5 +73,5 @@ private fun BackButton(onClick: () -> Unit) {
 @Preview
 @Composable
 private fun HelpsTopBarPreview() {
-    HelpsTopBar()
+    HelpsTopBar(true)
 }

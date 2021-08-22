@@ -6,11 +6,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.helps.presentation.common.composable.HelpsScaffold
+import com.helps.presentation.common.composable.HelpsTopBar
 
 @Composable
 fun HelpsUserProfileScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
-        HelpsScaffold(navController = navController) {
+        HelpsScaffold(
+            navController = navController,
+            topBar = { HelpsTopBar(withBackNavigation = false) }
+        ) {
             HelpsUserProfileScreenContent()
         }
     }

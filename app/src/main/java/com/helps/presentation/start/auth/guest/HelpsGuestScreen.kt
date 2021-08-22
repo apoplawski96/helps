@@ -16,29 +16,29 @@ import com.helps.presentation.common.composable.HelpsTextField
 
 @Composable
 fun HelpsGuestScreen(navController: NavController) {
-    HelpsScaffold(navController = navController, bottomBar = null) {
-        HelpsGuestScreenContent(
-            onGetInButtonClicked = { navController.navigate(HelpsDestinations.homeBottomNavRoot.route) }
-        )
+    Surface(color = MaterialTheme.colors.surface) {
+        HelpsScaffold(navController = navController, bottomBar = null) {
+            HelpsGuestScreenContent(
+                onGetInButtonClicked = { navController.navigate(HelpsDestinations.homeBottomNavRoot.route) }
+            )
+        }
     }
 }
 
 @Composable
 private fun HelpsGuestScreenContent(onGetInButtonClicked: () -> Unit) {
-    Surface(color = MaterialTheme.colors.surface) {
-        var usernameText by remember { mutableStateOf("") }
-        var phoneNumberText by remember { mutableStateOf("") }
-        Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Spacer(modifier = Modifier.height(128.dp))
-            HelpsMottoText(text = "Use it as Guest")
-            HelpsTextField(text = usernameText, label = "Username") { usernameText = it }
-            HelpsTextField(text = phoneNumberText, label = "Phone number") { phoneNumberText = it }
-            Spacer(modifier = Modifier.height(64.dp))
-            HelpsButtonSecondary(label = "Get in", onClick = onGetInButtonClicked)
-        }
+    var usernameText by remember { mutableStateOf("") }
+    var phoneNumberText by remember { mutableStateOf("") }
+    Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Spacer(modifier = Modifier.height(128.dp))
+        HelpsMottoText(text = "Use it as Guest")
+        HelpsTextField(text = usernameText, label = "Username") { usernameText = it }
+        HelpsTextField(text = phoneNumberText, label = "Phone number") { phoneNumberText = it }
+        Spacer(modifier = Modifier.height(64.dp))
+        HelpsButtonSecondary(label = "Get in", onClick = onGetInButtonClicked)
     }
 }

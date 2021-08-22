@@ -34,7 +34,8 @@ private fun HelpsBottomNavigationBar(
     onBottomNavClicked: (HelpsBottomNavRoot) -> Unit
 ) {
     BottomNavigation(
-        modifier = Modifier.background(MaterialTheme.colors.secondary)
+        backgroundColor = MaterialTheme.colors.secondary,
+        contentColor = MaterialTheme.colors.onSecondary
     ) {
         HelpsDestinations.bottomNavigationScreens.forEach { screen ->
             BottomNavigationItem(

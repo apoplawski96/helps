@@ -1,8 +1,10 @@
 package com.helps.presentation.common.composable
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -23,16 +25,19 @@ import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 
 @Composable
 fun HelpsNavHost() {
-    val navController =
-        rememberNavController()
+    val navController = rememberNavController()
     val systemUiController = rememberSystemUiController()
     val statusBarColor = MaterialTheme.colors.primary
 
-    SideEffect { systemUiController.setStatusBarColor(statusBarColor) }
+    SideEffect {
+        systemUiController.setStatusBarColor(statusBarColor)
+        systemUiController.setNavigationBarColor(Color.Black)
+    }
 
     NavHost(
         navController = navController,
-        startDestination = HelpsDestinations.startScreen.route
+        startDestination = HelpsDestinations.startScreen.route,
+        modifier = Modifier.fillMaxSize()
     ) {
         helpsStartScreen(
             builder = this,

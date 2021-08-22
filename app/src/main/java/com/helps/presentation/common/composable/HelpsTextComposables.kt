@@ -9,10 +9,12 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -31,8 +33,12 @@ fun HelpsMottoText(text: String) {
 }
 
 @Composable
-fun HelpsText(text: String) {
-    Text(text = text)
+fun HelpsText(
+    text: String,
+    color: Color = MaterialTheme.colors.secondary,
+    size: TextUnit = TextUnit.Unspecified
+) {
+    Text(text = text, color = color, fontSize = size)
 }
 
 @Composable

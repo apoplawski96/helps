@@ -6,11 +6,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.helps.presentation.common.composable.HelpsScaffold
+import com.helps.presentation.common.composable.HelpsTopBar
+import com.helps.presentation.helps.HelpsList
+import com.helps.presentation.helps.getMockItems
 
 @Composable
 fun HelpsPendingScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
-        HelpsScaffold(navController = navController) {
+        HelpsScaffold(
+            navController = navController,
+            topBar = { HelpsTopBar(withBackNavigation = false) }
+        ) {
             HelpsPendingScreenContent()
         }
     }
@@ -18,5 +24,5 @@ fun HelpsPendingScreen(navController: NavController) {
 
 @Composable
 private fun HelpsPendingScreenContent() {
-    Text(text = "Pending")
+    HelpsList(items = getMockItems(), listHeaderText = "Pending Helps")
 }

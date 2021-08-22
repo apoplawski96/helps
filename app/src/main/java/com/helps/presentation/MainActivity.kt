@@ -20,9 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            HelpsTheme(
-                darkTheme = false
-            ) {
+            HelpsTheme(darkTheme = false) {
                 Surface(
                     color = MaterialTheme.colors.background,
                     modifier = Modifier.fillMaxSize()

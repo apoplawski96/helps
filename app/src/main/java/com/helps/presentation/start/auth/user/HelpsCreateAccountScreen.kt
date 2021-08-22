@@ -17,8 +17,10 @@ import com.helps.presentation.common.composable.HelpsTextField
 
 @Composable
 fun HelpsCreateAccountScreen(navController: NavController) {
-    HelpsScaffold(navController = navController, bottomBar = null) {
-        HelpsCreateAccountScreenContent()
+    Surface(color = MaterialTheme.colors.surface) {
+        HelpsScaffold(navController = navController, bottomBar = null) {
+            HelpsCreateAccountScreenContent()
+        }
     }
 }
 
