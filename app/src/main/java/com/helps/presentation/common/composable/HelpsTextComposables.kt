@@ -36,9 +36,10 @@ fun HelpsMottoText(text: String) {
 fun HelpsText(
     text: String,
     color: Color = MaterialTheme.colors.secondary,
-    size: TextUnit = TextUnit.Unspecified
+    size: TextUnit = TextUnit.Unspecified,
+    fontWeight: FontWeight? = null
 ) {
-    Text(text = text, color = color, fontSize = size)
+    Text(text = text, color = color, fontSize = size, fontWeight = fontWeight)
 }
 
 @Composable

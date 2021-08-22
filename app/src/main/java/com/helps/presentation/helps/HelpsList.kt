@@ -16,10 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.helps.presentation.common.composable.HelpsText
+import com.helps.presentation.common.theme.HelpsThemeGrey
 
 @Composable
 fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {
@@ -39,11 +41,14 @@ fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {
 
 @Composable
 private fun HelpsItem(itemContent: HelpsItemContent) {
-    Card(backgroundColor = MaterialTheme.colors.secondaryVariant) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            HelpsThumbnail(itemContent.imageUrl)
-            HelpsInfo(itemContent)
-            GoToButton { }
+    Card(backgroundColor = MaterialTheme.colors.secondaryVariant, elevation = 0.dp, shape = MaterialTheme.shapes.large) {
+        Column() {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                HelpsThumbnail(itemContent.imageUrl)
+                HelpsInfo(itemContent)
+                GoToButton { }
+            }
+            Spacer(modifier = Modifier.fillMaxWidth().height(1.dp).background(HelpsThemeGrey))
         }
     }
 }
@@ -57,7 +62,7 @@ private fun ListHeader(listHeaderText: String) {
             .fillMaxWidth()
             .background(MaterialTheme.colors.primary)
     ) {
-        HelpsText(text = listHeaderText, size = 18.sp, color = MaterialTheme.colors.onPrimary)
+        HelpsText(text = listHeaderText, size = 18.sp, color = MaterialTheme.colors.onPrimary, fontWeight = FontWeight.Medium)
     }
 }
 
@@ -83,7 +88,8 @@ private fun GoToButton(onClick: () -> Unit) {
         Icon(
             modifier = Modifier.size(64.dp),
             imageVector = Icons.Default.ChevronRight,
-            contentDescription = null
+            contentDescription = null,
+            tint = MaterialTheme.colors.secondaryVariant
         )
     }
 }
@@ -186,7 +192,61 @@ fun getMockItems() = listOf(
         datePublished = "07/09/2020 8:15",
         sponsored = true,
         imageUrl = "jakis url jebac"
-    )
+    ),
+    HelpsItemContent(
+        id = "123",
+        title = "Prosze dla mnie psa wyprowadzic",
+        summary = "Pies gryzie",
+        location = "Belchatow ul. Jarzebinowa 4",
+        datePublished = "07/09/2020 8:15",
+        sponsored = true,
+        imageUrl = "jakis url jebac"
+    ),
+    HelpsItemContent(
+        id = "123",
+        title = "Prosze dla mnie psa wyprowadzic",
+        summary = "Pies gryzie",
+        location = "Belchatow ul. Jarzebinowa 4",
+        datePublished = "07/09/2020 8:15",
+        sponsored = true,
+        imageUrl = "jakis url jebac"
+    ),
+    HelpsItemContent(
+        id = "123",
+        title = "Prosze dla mnie psa wyprowadzic",
+        summary = "Pies gryzie",
+        location = "Belchatow ul. Jarzebinowa 4",
+        datePublished = "07/09/2020 8:15",
+        sponsored = true,
+        imageUrl = "jakis url jebac"
+    ),
+    HelpsItemContent(
+        id = "123",
+        title = "Prosze dla mnie psa wyprowadzic",
+        summary = "Pies gryzie",
+        location = "Belchatow ul. Jarzebinowa 4",
+        datePublished = "07/09/2020 8:15",
+        sponsored = true,
+        imageUrl = "jakis url jebac"
+    ),
+    HelpsItemContent(
+        id = "123",
+        title = "Prosze dla mnie psa wyprowadzic",
+        summary = "Pies gryzie",
+        location = "Belchatow ul. Jarzebinowa 4",
+        datePublished = "07/09/2020 8:15",
+        sponsored = true,
+        imageUrl = "jakis url jebac"
+    ),
+    HelpsItemContent(
+        id = "123",
+        title = "Prosze dla mnie psa wyprowadzic",
+        summary = "Pies gryzie",
+        location = "Belchatow ul. Jarzebinowa 4",
+        datePublished = "07/09/2020 8:15",
+        sponsored = true,
+        imageUrl = "jakis url jebac"
+    ),
 )
 
 

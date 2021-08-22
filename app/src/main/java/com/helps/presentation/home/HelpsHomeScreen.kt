@@ -47,7 +47,7 @@ private fun HelpsHomeScreenContent() {
 }
 
 @Composable
-fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> Unit) {
+private  fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> Unit) {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(32.dp)) {
         Box(
             modifier = Modifier
