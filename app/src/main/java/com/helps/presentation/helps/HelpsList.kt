@@ -3,7 +3,6 @@ package com.helps.presentation.helps
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -30,12 +29,25 @@ fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        ListHeader(listHeaderText)
+        HelpsHeader(listHeaderText)
         LazyColumn {
             itemsIndexed(items) { index: Int, itemContent: HelpsItemContent ->
                 HelpsItem(itemContent)
             }
         }
+    }
+}
+
+@Composable
+fun HelpsHeader(headerText: String) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .height(50.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.primary)
+    ) {
+        HelpsText(text = headerText, size = 18.sp, color = MaterialTheme.colors.onPrimary, fontWeight = FontWeight.Medium)
     }
 }
 
@@ -50,19 +62,6 @@ private fun HelpsItem(itemContent: HelpsItemContent) {
             }
             Spacer(modifier = Modifier.fillMaxWidth().height(1.dp).background(HelpsThemeGrey))
         }
-    }
-}
-
-@Composable
-private fun ListHeader(listHeaderText: String) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .height(50.dp)
-            .fillMaxWidth()
-            .background(MaterialTheme.colors.primary)
-    ) {
-        HelpsText(text = listHeaderText, size = 18.sp, color = MaterialTheme.colors.onPrimary, fontWeight = FontWeight.Medium)
     }
 }
 

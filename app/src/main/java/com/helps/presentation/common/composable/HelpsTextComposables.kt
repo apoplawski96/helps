@@ -2,10 +2,10 @@ package com.helps.presentation.common.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,9 +14,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.helps.presentation.common.theme.HelpsThemeDarkGrey
 
 @Composable
 fun HelpsMottoText(text: String) {
@@ -74,4 +77,27 @@ fun HelpsTextField(
                 .background(MaterialTheme.colors.secondary)
         )
     }
+}
+
+@Composable
+fun HelpsTextFieldBoxBig(text: String, height: Dp, onTextChanged: (String) -> Unit) {
+    TextField(
+        value = text,
+        onValueChange = onTextChanged,
+        label = { Text("") },
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.White,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            textColor = HelpsThemeDarkGrey
+        ),
+        modifier = Modifier.fillMaxWidth().height(height).padding(horizontal = 24.dp)
+    )
+}
+
+@Preview
+@Composable
+private fun HelpsTextFieldBoxBigPreview() {
+    HelpsTextFieldBoxBig(text = "Type your message", height = 128.dp) { }
 }

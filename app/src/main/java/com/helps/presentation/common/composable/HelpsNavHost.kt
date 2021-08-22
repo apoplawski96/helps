@@ -16,6 +16,7 @@ import androidx.navigation.navigation
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.helps.active.HelpsActiveScreen
+import com.helps.presentation.helps.add.HelpsAddNewScreen
 import com.helps.presentation.helps.pending.HelpsPendingScreen
 import com.helps.presentation.home.HelpsHomeScreen
 import com.helps.presentation.profile.HelpsUserProfileScreen
@@ -65,6 +66,11 @@ fun HelpsNavHost() {
             navController = navController
         )
         helpsUserProfileScreenBottomNavRoot(
+            builder = this,
+            navController = navController
+        )
+
+        helpsAddScreen(
             builder = this,
             navController = navController
         )
@@ -157,5 +163,16 @@ private fun helpsCreateAccountScreen(
         route = HelpsDestinations.createAccountScreen.route
     ) {
         HelpsCreateAccountScreen(navController = navController)
+    }
+}
+
+private fun helpsAddScreen(
+    builder: NavGraphBuilder,
+    navController: NavController
+) {
+    builder.composable(
+        route = HelpsDestinations.addHelpsScreen.route
+    ) {
+        HelpsAddNewScreen(navController = navController)
     }
 }

@@ -29,6 +29,7 @@ fun HelpsGuestScreen(navController: NavController) {
 private fun HelpsGuestScreenContent(onGetInButtonClicked: () -> Unit) {
     var usernameText by remember { mutableStateOf("") }
     var phoneNumberText by remember { mutableStateOf("") }
+
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,

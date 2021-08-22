@@ -35,6 +35,8 @@ object HelpsDestinations {
     val userProfileBottomNavRoot: HelpsBottomNavRoot = UserProfileBottomNavRoot
     val userProfileScreen = UserProfileScreen
 
+    val addHelpsScreen = AddHelpsScreen
+
     val bottomNavigationScreens = listOf(
         homeBottomNavRoot,
         activeHelpsBottomNavRoot,
@@ -143,6 +145,14 @@ object UserProfileScreen : HelpsScreen {
 
     override val route: String
         get() = "user_profile_screen"
+    override val arguments: List<NamedNavArgument>
+        get() = listOf()
+}
+
+object AddHelpsScreen : HelpsScreen {
+
+    override val route: String
+        get() = "add_helps_screen"
     override val arguments: List<NamedNavArgument>
         get() = listOf()
 }
