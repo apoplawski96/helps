@@ -1,10 +1,13 @@
 package com.helps.presentation.common.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,14 +38,16 @@ private fun HelpsBottomNavigationBar(
 ) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.secondary,
-        contentColor = MaterialTheme.colors.onSecondary
+        contentColor = MaterialTheme.colors.onSecondary,
+        modifier = Modifier.height(64.dp)
     ) {
         HelpsDestinations.bottomNavigationScreens.forEach { screen ->
             BottomNavigationItem(
                 label = { Text(text = screen.label) },
                 selected = isRouteSelected(screen, currentDestination),
                 onClick = { onBottomNavClicked(screen) },
-                icon = { Icon(imageVector = screen.icon, contentDescription = screen.label) }
+                icon = { Icon(imageVector = screen.icon, contentDescription = screen.label) },
+                modifier = Modifier.fillMaxHeight().align(CenterVertically)
             )
         }
     }
