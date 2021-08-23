@@ -11,19 +11,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
-fun HelpsTopBar(withBackNavigation: Boolean) {
+fun HelpsTopBar(navController: NavController? = null) {
+    val actionBarHeight = 50.dp
+    val statusBarHeight = 30.dp
+    val topBarHeight = statusBarHeight + actionBarHeight
+    val hasBackNavigation = navController != null
+
     TopAppBar(
         elevation = 0.dp,
-        backgroundColor = Color.Transparent
+        backgroundColor = Color.Transparent,
+        modifier = Modifier.height(topBarHeight)
     ) {
-        ActionBar(withBackNavigation)
+        Column() {
+            Spacer(modifier = Modifier.height(24.dp))
+            ActionBar(hasBackNavigation) {
+                navController?.popBackStack()
+            }
+        }
     }
 }
 
 @Composable
-private fun ActionBar(withBackNavigation: Boolean) {
+private fun ActionBar(withBackNavigation: Boolean, onBackNavigationClick: () -> Unit) {
     Box(
         modifier = Modifier
             .height(50.dp)
@@ -31,17 +43,17 @@ private fun ActionBar(withBackNavigation: Boolean) {
             .padding(vertical = 8.dp)
     ) {
         HelpsLogoOverlay()
-        if (withBackNavigation) BackNavigationOverlay()
+        if (withBackNavigation) BackNavigationOverlay(onBackNavigationClick)
     }
 }
 
 @Composable
-private fun BackNavigationOverlay() {
+private fun BackNavigationOverlay(onBackNavigationClick: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start
     ) {
-        BackNavigationIcon {}
+        BackNavigationIcon { onBackNavigationClick() }
     }
 }
 
@@ -73,5 +85,5 @@ private fun BackNavigationIcon(onClick: () -> Unit) {
 @Preview
 @Composable
 private fun HelpsTopBarPreview() {
-    HelpsTopBar(true)
+    HelpsTopBar(null)
 }

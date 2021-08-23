@@ -13,7 +13,7 @@ fun HelpsUserProfileScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
         HelpsScaffold(
             navController = navController,
-            topBar = { HelpsTopBar(withBackNavigation = false) }
+            topBar = { HelpsTopBar(navController = null) }
         ) {
             HelpsUserProfileScreenContent()
         }

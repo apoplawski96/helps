@@ -28,7 +28,7 @@ fun HelpsHomeScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
         HelpsScaffold(
             navController = navController,
-            topBar = { HelpsTopBar(withBackNavigation = false) }
+            topBar = { HelpsTopBar(navController = null) }
         ) {
             HelpsHomeScreenContent(
                 onAddHelpsClick = { navController.navigate(HelpsDestinations.addHelpsScreen.route) }

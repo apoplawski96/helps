@@ -21,7 +21,6 @@ fun HelpsAddNewScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.primary) {
         HelpsScaffold(
             navController = navController,
-            topBar = { HelpsTopBar(withBackNavigation = true) },
             bottomBar = null
         ) {
             HelpsAddNewScreenContent()

@@ -15,7 +15,7 @@ fun HelpsActiveScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.primary) {
         HelpsScaffold(
             navController = navController,
-            topBar = { HelpsTopBar(withBackNavigation = false) }
+            topBar = { HelpsTopBar(navController = null) }
         ) {
             HelpsActiveScreenContent()
         }

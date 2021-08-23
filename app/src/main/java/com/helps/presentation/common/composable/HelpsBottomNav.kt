@@ -1,12 +1,12 @@
 package com.helps.presentation.common.composable
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,8 +26,11 @@ fun HelpsBottomNav(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    HelpsBottomNavigationBar(currentDestination = currentDestination) {
-        onBottomNavItemClicked(navController, it)
+    Column() {
+        HelpsBottomNavigationBar(currentDestination = currentDestination) {
+            onBottomNavItemClicked(navController, it)
+        }
+        Spacer(modifier = Modifier.height(44.dp))
     }
 }
 
@@ -47,7 +50,9 @@ private fun HelpsBottomNavigationBar(
                 selected = isRouteSelected(screen, currentDestination),
                 onClick = { onBottomNavClicked(screen) },
                 icon = { Icon(imageVector = screen.icon, contentDescription = screen.label) },
-                modifier = Modifier.fillMaxHeight().align(CenterVertically)
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .align(CenterVertically)
             )
         }
     }

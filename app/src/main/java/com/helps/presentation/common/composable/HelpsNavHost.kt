@@ -1,18 +1,22 @@
 package com.helps.presentation.common.composable
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navigation
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.navigation
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.helps.active.HelpsActiveScreen
@@ -24,18 +28,21 @@ import com.helps.presentation.start.auth.guest.HelpsGuestScreen
 import com.helps.presentation.start.auth.user.HelpsCreateAccountScreen
 import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 
+@ExperimentalAnimationApi
 @Composable
 fun HelpsNavHost() {
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
     val systemUiController = rememberSystemUiController()
-    val statusBarColor = MaterialTheme.colors.primary
 
     SideEffect {
-        systemUiController.setStatusBarColor(statusBarColor)
+        systemUiController.setStatusBarColor(
+            color = Color.Transparent,
+            darkIcons = true
+        )
         systemUiController.setNavigationBarColor(Color.Black)
     }
 
-    NavHost(
+    AnimatedNavHost(
         navController = navController,
         startDestination = HelpsDestinations.startScreen.route,
         modifier = Modifier.fillMaxSize()
@@ -77,6 +84,7 @@ fun HelpsNavHost() {
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsHomeScreenBottomNavRoot(
     builder: NavGraphBuilder,
     navController: NavHostController
@@ -85,12 +93,18 @@ private fun helpsHomeScreenBottomNavRoot(
         startDestination = HelpsDestinations.homeScreen.route,
         route = HelpsDestinations.homeBottomNavRoot.route
     ) {
-        composable(HelpsDestinations.homeScreen.route) {
+        composable(
+            route = HelpsDestinations.homeScreen.route,
+//            enterTransition = { _, _ ->
+//                fadeIn(animationSpec = tween(2000))
+//            }
+        ) {
             HelpsHomeScreen(navController = navController)
         }
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsActiveScreenBottomNavRoot(
     builder: NavGraphBuilder,
     navController: NavHostController
@@ -105,6 +119,7 @@ private fun helpsActiveScreenBottomNavRoot(
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsPendingScreenBottomNavRoot(
     builder: NavGraphBuilder,
     navController: NavHostController
@@ -119,6 +134,7 @@ private fun helpsPendingScreenBottomNavRoot(
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsUserProfileScreenBottomNavRoot(
     builder: NavGraphBuilder,
     navController: NavHostController
@@ -133,6 +149,7 @@ private fun helpsUserProfileScreenBottomNavRoot(
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsStartScreen(
     builder: NavGraphBuilder,
     navController: NavController
@@ -144,6 +161,7 @@ private fun helpsStartScreen(
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsGuestScreen(
     builder: NavGraphBuilder,
     navController: NavController
@@ -155,6 +173,7 @@ private fun helpsGuestScreen(
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsCreateAccountScreen(
     builder: NavGraphBuilder,
     navController: NavController
@@ -166,6 +185,7 @@ private fun helpsCreateAccountScreen(
     }
 }
 
+@ExperimentalAnimationApi
 private fun helpsAddScreen(
     builder: NavGraphBuilder,
     navController: NavController
