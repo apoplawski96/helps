@@ -11,15 +11,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 
 @Composable
-fun HelpsScaffold(
+fun HelpsRootScaffold(
     navController: NavController,
-    topBar: (@Composable () -> Unit)? = { HelpsTopBar(navController) },
     bottomBar: (@Composable () -> Unit)? = { HelpsBottomNav(navController) },
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        topBar = { topBar?.invoke() },
         bottomBar = { bottomBar?.invoke() },
+        backgroundColor = Color.Transparent
+    ) {
+        Box(modifier = Modifier.padding(it)) {
+            content(it)
+        }
+    }
+}
+
+@Composable
+fun HelpsDestinationScaffold(
+    topBar: (@Composable () -> Unit)? = { HelpsTopBar(null) },
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    Scaffold(
+        topBar = { topBar?.invoke() },
         backgroundColor = Color.Transparent
     ) {
         Box(modifier = Modifier.padding(it)) {

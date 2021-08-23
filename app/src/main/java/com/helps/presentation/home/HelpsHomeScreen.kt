@@ -19,17 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.helps.presentation.HelpsDestinations
-import com.helps.presentation.common.composable.HelpsScaffold
+import com.helps.presentation.common.composable.HelpsDestinationScaffold
 import com.helps.presentation.common.composable.HelpsText
-import com.helps.presentation.common.composable.HelpsTopBar
 
 @Composable
 fun HelpsHomeScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
-        HelpsScaffold(
-            navController = navController,
-            topBar = { HelpsTopBar(navController = null) }
-        ) {
+        HelpsDestinationScaffold() {
             HelpsHomeScreenContent(
                 onAddHelpsClick = { navController.navigate(HelpsDestinations.addHelpsScreen.route) }
             )

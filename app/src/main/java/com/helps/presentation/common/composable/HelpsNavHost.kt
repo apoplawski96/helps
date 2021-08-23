@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.helps.active.HelpsActiveScreen
@@ -31,9 +32,8 @@ import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 
 @ExperimentalAnimationApi
 @Composable
-fun HelpsNavHost() {
-    val navController = rememberAnimatedNavController()
-    val systemUiController = rememberSystemUiController()
+fun HelpsNavHost(navController: NavHostController, systemUiController: SystemUiController) {
+
 
     SideEffect {
         systemUiController.setStatusBarColor(
@@ -100,7 +100,11 @@ private fun helpsHomeScreenBottomNavRoot(
         ) {
             HelpsHomeScreen(navController = navController)
         }
-        helpsAddScreen(builder = builder, navController = navController)
+        builder.composable(
+            route = HelpsDestinations.addHelpsScreen.route
+        ) {
+            HelpsAddNewScreen(navController = navController)
+        }
     }
 }
 
@@ -182,17 +186,5 @@ private fun helpsCreateAccountScreen(
         route = HelpsDestinations.createAccountScreen.route
     ) {
         HelpsCreateAccountScreen(navController = navController)
-    }
-}
-
-@ExperimentalAnimationApi
-private fun helpsAddScreen(
-    builder: NavGraphBuilder,
-    navController: NavController
-) {
-    builder.composable(
-        route = HelpsDestinations.addHelpsScreen.route
-    ) {
-        HelpsAddNewScreen(navController = navController)
     }
 }

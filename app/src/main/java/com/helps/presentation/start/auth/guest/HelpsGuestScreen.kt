@@ -11,13 +11,13 @@ import androidx.navigation.NavController
 import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.common.composable.HelpsButtonSecondary
 import com.helps.presentation.common.composable.HelpsMottoText
-import com.helps.presentation.common.composable.HelpsScaffold
+import com.helps.presentation.common.composable.HelpsRootScaffold
 import com.helps.presentation.common.composable.HelpsTextField
 
 @Composable
 fun HelpsGuestScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
-        HelpsScaffold(navController = navController, bottomBar = null) {
+        HelpsRootScaffold(navController = navController, bottomBar = null) {
             HelpsGuestScreenContent(
                 onGetInButtonClicked = { navController.navigate(HelpsDestinations.homeBottomNavRoot.route) }
             )

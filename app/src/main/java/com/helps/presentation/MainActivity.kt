@@ -9,7 +9,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.helps.presentation.common.composable.HelpsNavHost
+import com.helps.presentation.common.composable.HelpsRootScaffold
+import com.helps.presentation.common.composable.HelpsTopBar
 import com.helps.presentation.common.theme.HelpsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +32,14 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    HelpsNavHost()
+                    val navController = rememberAnimatedNavController()
+                    val systemUiController = rememberSystemUiController()
+
+                    HelpsRootScaffold(
+                        navController = navController,
+                    ) {
+                        HelpsNavHost(navController, systemUiController)
+                    }
                 }
             }
         }
