@@ -1,6 +1,8 @@
 package com.helps.presentation.common.composable
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -44,7 +46,13 @@ fun HelpsNavHost() {
     AnimatedNavHost(
         navController = navController,
         startDestination = HelpsDestinations.homeBottomNavRoot.route,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        enterTransition = { _, _ ->
+            slideInHorizontally(initialOffsetX = { 1000 })
+        },
+        exitTransition = { _, _ ->
+            slideOutHorizontally(targetOffsetX = { -1000 })
+        }
     ) {
         helpsHomeScreenBottomNavRoot(
             builder = this,
@@ -75,11 +83,6 @@ fun HelpsNavHost() {
             builder = this,
             navController = navController
         )
-
-        helpsAddScreen(
-            builder = this,
-            navController = navController
-        )
     }
 }
 
@@ -97,6 +100,7 @@ private fun helpsHomeScreenBottomNavRoot(
         ) {
             HelpsHomeScreen(navController = navController)
         }
+        helpsAddScreen(builder = builder, navController = navController)
     }
 }
 
