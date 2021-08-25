@@ -1,4 +1,4 @@
-package com.helps.presentation.common.composable
+package com.helps.framework
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally
@@ -11,16 +11,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import com.google.accompanist.navigation.animation.navigation
 import com.google.accompanist.navigation.animation.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.SystemUiController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.helps.active.HelpsActiveScreen
 import com.helps.presentation.helps.add.HelpsAddNewScreen
 import com.helps.presentation.helps.pending.HelpsPendingScreen
@@ -34,7 +28,6 @@ import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 @Composable
 fun HelpsNavHost(navController: NavHostController, systemUiController: SystemUiController) {
 
-
     SideEffect {
         systemUiController.setStatusBarColor(
             color = Color.Transparent,
@@ -45,7 +38,7 @@ fun HelpsNavHost(navController: NavHostController, systemUiController: SystemUiC
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = HelpsDestinations.homeBottomNavRoot.route,
+        startDestination = HelpsDestinations.StartSection.startScreen.route,
         modifier = Modifier.fillMaxSize(),
         enterTransition = { _, _ ->
             slideInHorizontally(initialOffsetX = { 1000 })
@@ -54,23 +47,6 @@ fun HelpsNavHost(navController: NavHostController, systemUiController: SystemUiC
             slideOutHorizontally(targetOffsetX = { -1000 })
         }
     ) {
-        helpsHomeScreenBottomNavRoot(
-            builder = this,
-            navController = navController
-        )
-        helpsActiveScreenBottomNavRoot(
-            builder = this,
-            navController = navController
-        )
-        helpsPendingScreenBottomNavRoot(
-            builder = this,
-            navController = navController
-        )
-        helpsUserProfileScreenBottomNavRoot(
-            builder = this,
-            navController = navController
-        )
-
         helpsStartScreen(
             builder = this,
             navController = navController
@@ -83,6 +59,32 @@ fun HelpsNavHost(navController: NavHostController, systemUiController: SystemUiC
             builder = this,
             navController = navController
         )
+
+        helpsHomeScreenBottomNavRoot(
+            builder = this,
+            navController = navController
+        )
+        helpsActiveScreenBottomNavRoot(
+            builder = this,
+            navController = navController
+        )
+        helpsPendingScreenBottomNavRoot(
+            builder = this,
+            navController = navController
+        )
+        helpsSettingsScreenBottomNavRoot(
+            builder = this,
+            navController = navController
+        )
+
+        helpsAddScreen(
+            builder = this,
+            navController = navController
+        )
+        helpsSearchScreen(
+            builder = this,
+            navController = navController
+        )
     }
 }
 
@@ -92,18 +94,13 @@ private fun helpsHomeScreenBottomNavRoot(
     navController: NavHostController
 ) {
     builder.navigation(
-        startDestination = HelpsDestinations.homeScreen.route,
-        route = HelpsDestinations.homeBottomNavRoot.route
+        startDestination = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route,
+        route = HelpsDestinations.BottomNavRoots.home.route
     ) {
         composable(
-            route = HelpsDestinations.homeScreen.route,
+            route = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route,
         ) {
             HelpsHomeScreen(navController = navController)
-        }
-        builder.composable(
-            route = HelpsDestinations.addHelpsScreen.route
-        ) {
-            HelpsAddNewScreen(navController = navController)
         }
     }
 }
@@ -114,10 +111,10 @@ private fun helpsActiveScreenBottomNavRoot(
     navController: NavHostController
 ) {
     builder.navigation(
-        startDestination = HelpsDestinations.activeHelpsScreen.route,
-        route = HelpsDestinations.activeHelpsBottomNavRoot.route
+        startDestination = HelpsDestinations.MainSection.BottomNavSection.activeHelpsScreen.route,
+        route = HelpsDestinations.BottomNavRoots.active.route
     ) {
-        composable(HelpsDestinations.activeHelpsScreen.route) {
+        composable(HelpsDestinations.MainSection.BottomNavSection.activeHelpsScreen.route) {
             HelpsActiveScreen(navController = navController)
         }
     }
@@ -129,25 +126,25 @@ private fun helpsPendingScreenBottomNavRoot(
     navController: NavHostController
 ) {
     builder.navigation(
-        startDestination = HelpsDestinations.pendingHelpsScreen.route,
-        route = HelpsDestinations.pendingHelpsBottomNavRoot.route
+        startDestination = HelpsDestinations.MainSection.BottomNavSection.pendingHelpsScreen.route,
+        route = HelpsDestinations.BottomNavRoots.pending.route
     ) {
-        composable(HelpsDestinations.pendingHelpsScreen.route) {
+        composable(HelpsDestinations.MainSection.BottomNavSection.pendingHelpsScreen.route) {
             HelpsPendingScreen(navController = navController)
         }
     }
 }
 
 @ExperimentalAnimationApi
-private fun helpsUserProfileScreenBottomNavRoot(
+private fun helpsSettingsScreenBottomNavRoot(
     builder: NavGraphBuilder,
     navController: NavHostController
 ) {
     builder.navigation(
-        startDestination = HelpsDestinations.userProfileScreen.route,
-        route = HelpsDestinations.userProfileBottomNavRoot.route
+        startDestination = HelpsDestinations.MainSection.BottomNavSection.settingsScreen.route,
+        route = HelpsDestinations.BottomNavRoots.settings.route
     ) {
-        composable(HelpsDestinations.userProfileScreen.route) {
+        composable(HelpsDestinations.MainSection.BottomNavSection.settingsScreen.route) {
             HelpsUserProfileScreen(navController = navController)
         }
     }
@@ -159,7 +156,7 @@ private fun helpsStartScreen(
     navController: NavController
 ) {
     builder.composable(
-        route = HelpsDestinations.startScreen.route
+        route = HelpsDestinations.StartSection.startScreen.route
     ) {
         HelpsWelcomeScreen(navController = navController)
     }
@@ -171,7 +168,7 @@ private fun helpsGuestScreen(
     navController: NavController
 ) {
     builder.composable(
-        route = HelpsDestinations.guestScreen.route
+        route = HelpsDestinations.StartSection.guestScreen.route
     ) {
         HelpsGuestScreen(navController = navController)
     }
@@ -183,8 +180,32 @@ private fun helpsCreateAccountScreen(
     navController: NavController
 ) {
     builder.composable(
-        route = HelpsDestinations.createAccountScreen.route
+        route = HelpsDestinations.StartSection.createAccountScreen.route
     ) {
         HelpsCreateAccountScreen(navController = navController)
+    }
+}
+
+@ExperimentalAnimationApi
+private fun helpsAddScreen(
+    builder: NavGraphBuilder,
+    navController: NavController
+) {
+    builder.composable(
+        route = HelpsDestinations.MainSection.addHelpsScreen.route
+    ) {
+        HelpsAddNewScreen(navController = navController)
+    }
+}
+
+@ExperimentalAnimationApi
+private fun helpsSearchScreen(
+    builder: NavGraphBuilder,
+    navController: NavController
+) {
+    builder.composable(
+        route = HelpsDestinations.MainSection.searchHelpsScreen.route
+    ) {
+        HelpsAddNewScreen(navController = navController)
     }
 }

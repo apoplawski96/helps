@@ -11,9 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.helps.presentation.common.composable.HelpsNavHost
+import com.helps.framework.HelpsNavHost
 import com.helps.presentation.common.composable.HelpsRootScaffold
-import com.helps.presentation.common.composable.HelpsTopBar
 import com.helps.presentation.common.theme.HelpsTheme
 import dagger.hilt.android.AndroidEntryPoint
 

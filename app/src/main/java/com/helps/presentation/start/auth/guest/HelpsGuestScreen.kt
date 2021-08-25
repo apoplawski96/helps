@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.helps.presentation.HelpsDestinations
+import com.helps.framework.HelpsDestinations
 import com.helps.presentation.common.composable.HelpsButtonSecondary
 import com.helps.presentation.common.composable.HelpsMottoText
 import com.helps.presentation.common.composable.HelpsRootScaffold
@@ -19,7 +19,7 @@ fun HelpsGuestScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.surface) {
         HelpsRootScaffold(navController = navController, bottomBar = null) {
             HelpsGuestScreenContent(
-                onGetInButtonClicked = { navController.navigate(HelpsDestinations.homeBottomNavRoot.route) }
+                onGetInButtonClicked = { navController.navigate(HelpsDestinations.BottomNavRoots.home.route) }
             )
         }
     }
