@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.helps.framework.HelpsDestinations
+import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.common.composable.HelpsDestinationScaffold
 import com.helps.presentation.common.composable.HelpsText
 

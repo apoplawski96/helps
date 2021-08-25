@@ -1,4 +1,4 @@
-package com.helps.framework
+package com.helps.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally

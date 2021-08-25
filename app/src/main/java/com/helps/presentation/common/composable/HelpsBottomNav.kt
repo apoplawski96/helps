@@ -16,7 +16,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.helps.framework.HelpsBottomNavTab
+import com.helps.presentation.HelpsBottomNavTab
 
 @Composable
 fun HelpsBottomNav(

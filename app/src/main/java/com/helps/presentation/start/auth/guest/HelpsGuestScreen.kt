@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.helps.framework.HelpsDestinations
+import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.common.composable.HelpsButtonSecondary
 import com.helps.presentation.common.composable.HelpsMottoText
 import com.helps.presentation.common.composable.HelpsRootScaffold
