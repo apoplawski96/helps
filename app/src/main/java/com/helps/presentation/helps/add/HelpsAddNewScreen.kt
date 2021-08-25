@@ -19,10 +19,7 @@ import com.helps.presentation.helps.HelpsHeader
 @Composable
 fun HelpsAddNewScreen(navController: NavController) {
     Surface(color = MaterialTheme.colors.primary) {
-        HelpsScaffold(
-            navController = navController,
-            bottomBar = null
-        ) {
+        HelpsDestinationScaffold() {
             HelpsAddNewScreenContent()
         }
     }

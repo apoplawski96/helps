@@ -16,8 +16,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.helps.presentation.HelpsBottomNavRoot
-import com.helps.presentation.HelpsDestinations
+import com.helps.framework.HelpsBottomNavTab
 
 @Composable
 fun HelpsBottomNav(
@@ -26,30 +25,54 @@ fun HelpsBottomNav(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    Column() {
-        HelpsBottomNavigationBar(currentDestination = currentDestination) {
-            onBottomNavItemClicked(navController, it)
+    HelpsBottomNav(currentDestination = currentDestination, onBottomNavClicked = {
+        onBottomNavItemClicked(
+            navController = navController,
+            destination = it
+        )
+    })
+}
+
+@Composable
+private fun HelpsBottomNav(
+    currentDestination: NavDestination?,
+    onBottomNavClicked: (HelpsBottomNavTab) -> Unit
+) {
+    val bottomNavRoutesList = HelpsBottomNavTab.getRoutesList()
+    val currentRoute = currentDestination?.route
+
+    Column {
+        if (currentRoute in bottomNavRoutesList) {
+            HelpsBottomNavigationBar(
+                currentDestination = currentDestination,
+                onBottomNavClicked = onBottomNavClicked
+            )
         }
-        Spacer(modifier = Modifier.height(44.dp))
+        SystemNavigationBarOffset()
     }
 }
 
 @Composable
 private fun HelpsBottomNavigationBar(
     currentDestination: NavDestination?,
-    onBottomNavClicked: (HelpsBottomNavRoot) -> Unit
+    onBottomNavClicked: (HelpsBottomNavTab) -> Unit
 ) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.secondary,
         contentColor = MaterialTheme.colors.onSecondary,
         modifier = Modifier.height(64.dp)
     ) {
-        HelpsDestinations.bottomNavigationScreens.forEach { screen ->
+        HelpsBottomNavTab.values().forEach { bottomNavTab ->
             BottomNavigationItem(
-                label = { Text(text = screen.label) },
-                selected = isRouteSelected(screen, currentDestination),
-                onClick = { onBottomNavClicked(screen) },
-                icon = { Icon(imageVector = screen.icon, contentDescription = screen.label) },
+                label = { Text(text = bottomNavTab.label) },
+                selected = isRouteSelected(bottomNavTab, currentDestination),
+                onClick = { onBottomNavClicked(bottomNavTab) },
+                icon = {
+                    Icon(
+                        imageVector = bottomNavTab.icon,
+                        contentDescription = bottomNavTab.label
+                    )
+                },
                 modifier = Modifier
                     .fillMaxHeight()
                     .align(CenterVertically)
@@ -58,14 +81,19 @@ private fun HelpsBottomNavigationBar(
     }
 }
 
+@Composable
+private fun SystemNavigationBarOffset() {
+    Spacer(modifier = Modifier.height(44.dp))
+}
+
 private fun isRouteSelected(
-    destination: HelpsBottomNavRoot,
+    destination: HelpsBottomNavTab,
     currentDestination: NavDestination?,
 ) = currentDestination?.hierarchy?.any { it.route == destination.route } == true
 
 private fun onBottomNavItemClicked(
     navController: NavController,
-    destination: HelpsBottomNavRoot,
+    destination: HelpsBottomNavTab,
 ) {
     navController.navigate(destination.route) {
         popUpTo(navController.graph.findStartDestination().id) {
