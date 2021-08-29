@@ -15,30 +15,32 @@ val HelpsThemeGrey = Color(0xFFC9C9C9)
 val HelpsThemeDarkGrey = Color(0xFF5c5c5c)
 val HelpsThemeRed = Color(0xFF921111)
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = HelpsColors(
     primary = HelpsThemeGreen,
     primaryVariant = HelpsThemeDarkGreen,
     secondary = HelpsThemeWhite,
     secondaryVariant = HelpsThemeLightGrey,
-    background = HelpsThemeGrey,
-    surface = HelpsThemeGreen,
-    error = HelpsThemeRed,
-    onPrimary = HelpsThemeWhite,
-    onSecondary = HelpsThemeGreen,
-    onSurface = HelpsThemeWhite
+    textOnPrimary = HelpsThemeWhite,
+    textOnSecondary = HelpsThemeGrey,
+    textOnSecondaryButton = HelpsThemeGreen,
+    accent = HelpsThemeRed,
+    listItemBackground = HelpsThemeGrey,
+    archived = HelpsThemeDarkGrey,
+    isDark = false
 )
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = HelpsColors(
     primary = HelpsThemeWhite,
     primaryVariant = HelpsThemeLightGrey,
     secondary = HelpsThemeGreen,
     secondaryVariant = HelpsThemeDarkGreen,
-    background = HelpsThemeGrey,
-    surface = HelpsThemeWhite,
-    error = HelpsThemeRed,
-    onPrimary = HelpsThemeWhite,
-    onSecondary = HelpsThemeWhite,
-    onSurface = HelpsThemeWhite
+    textOnPrimary = HelpsThemeGreen,
+    textOnSecondary = HelpsThemeWhite,
+    textOnSecondaryButton = HelpsThemeWhite,
+    accent = HelpsThemeRed,
+    listItemBackground = HelpsThemeGrey,
+    archived = HelpsThemeDarkGrey,
+    isDark = true
 )
 
 @Composable
@@ -46,10 +48,21 @@ fun HelpsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colors = if (darkTheme) DarkColorPalette else LightColorPalette,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    val colors = if (darkTheme) DarkColorPalette else LightColorPalette
+
+    ProvideHelpsColors(colors = colors) {
+        MaterialTheme(
+            colors = debugColors(darkTheme),
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
+}
+
+object HelpsTheme {
+
+    val colors: HelpsColors
+        @Composable
+        get() = LocalHelpsColors.current
 }

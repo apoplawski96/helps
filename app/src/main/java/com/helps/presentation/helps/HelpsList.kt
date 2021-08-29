@@ -20,7 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.helps.presentation.common.composable.HelpsText
+import com.helps.presentation.common.theme.HelpsTheme
 import com.helps.presentation.common.theme.HelpsThemeGrey
+import com.helps.presentation.helps.model.HelpsItemContent
 
 @Composable
 fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {
@@ -45,22 +47,34 @@ fun HelpsHeader(headerText: String) {
         modifier = Modifier
             .height(50.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colors.primary)
+            .background(HelpsTheme.colors.primary)
     ) {
-        HelpsText(text = headerText, size = 18.sp, color = MaterialTheme.colors.onPrimary, fontWeight = FontWeight.Medium)
+        HelpsText(
+            text = headerText,
+            size = 18.sp,
+            color = HelpsTheme.colors.textOnPrimary,
+            fontWeight = FontWeight.Medium
+        )
     }
 }
 
 @Composable
 private fun HelpsItem(itemContent: HelpsItemContent) {
-    Card(backgroundColor = MaterialTheme.colors.secondaryVariant, elevation = 0.dp, shape = MaterialTheme.shapes.large) {
+    Card(
+        backgroundColor = HelpsTheme.colors.secondaryVariant,
+        elevation = 0.dp,
+        shape = MaterialTheme.shapes.large
+    ) {
         Column() {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 HelpsThumbnail(itemContent.imageUrl)
                 HelpsInfo(itemContent)
                 GoToButton { }
             }
-            Spacer(modifier = Modifier.fillMaxWidth().height(1.dp).background(HelpsThemeGrey))
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(HelpsThemeGrey))
         }
     }
 }
@@ -88,7 +102,7 @@ private fun GoToButton(onClick: () -> Unit) {
             modifier = Modifier.size(64.dp),
             imageVector = Icons.Default.ChevronRight,
             contentDescription = null,
-            tint = MaterialTheme.colors.secondaryVariant
+            tint = HelpsTheme.colors.secondaryVariant
         )
     }
 }
@@ -100,7 +114,7 @@ private fun SponsoredText(isSponsored: Boolean) {
 
 @Composable
 private fun TitleText(title: String) {
-    HelpsText(text = title, size = 16.sp, color = MaterialTheme.colors.primary)
+    HelpsText(text = title, size = 16.sp, color = HelpsTheme.colors.primary)
 }
 
 @Composable
@@ -114,14 +128,14 @@ private fun LocationText(location: String) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(imageVector = Icons.Default.MyLocation, contentDescription = null)
+        Icon(imageVector = Icons.Default.MyLocation, contentDescription = null, tint = Color.DarkGray)
         HelpsText(text = location, size = 12.sp, color = Color.DarkGray)
     }
 }
 
 @Composable
 private fun PublishedTimeText(publishedTime: String) {
-    HelpsText(text = publishedTime, size = 14.sp, color = MaterialTheme.colors.primary)
+    HelpsText(text = publishedTime, size = 14.sp, color = HelpsTheme.colors.primary)
 }
 
 @Composable

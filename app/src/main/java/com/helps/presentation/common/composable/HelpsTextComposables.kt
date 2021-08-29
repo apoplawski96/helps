@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.helps.presentation.common.theme.HelpsTheme
 import com.helps.presentation.common.theme.HelpsThemeDarkGrey
 
 @Composable
@@ -30,7 +31,7 @@ fun HelpsMottoText(text: String) {
         modifier = Modifier.padding(16.dp),
         style = TextStyle(
             fontSize = 24.sp,
-            color = MaterialTheme.colors.secondary,
+            color = HelpsTheme.colors.secondary,
         ),
     )
 }
@@ -38,7 +39,7 @@ fun HelpsMottoText(text: String) {
 @Composable
 fun HelpsText(
     text: String,
-    color: Color = MaterialTheme.colors.secondary,
+    color: Color = HelpsTheme.colors.secondary,
     size: TextUnit = TextUnit.Unspecified,
     fontWeight: FontWeight? = null
 ) {
@@ -63,10 +64,10 @@ fun HelpsTextField(
             label = { Text(label) },
             visualTransformation = visualTransformation,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.secondary,
-                unfocusedBorderColor = MaterialTheme.colors.secondary,
-                focusedLabelColor = MaterialTheme.colors.secondary,
-                unfocusedLabelColor = MaterialTheme.colors.secondary
+                focusedBorderColor = HelpsTheme.colors.secondary,
+                unfocusedBorderColor = HelpsTheme.colors.secondary,
+                focusedLabelColor = HelpsTheme.colors.secondary,
+                unfocusedLabelColor = HelpsTheme.colors.secondary
             )
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -74,7 +75,7 @@ fun HelpsTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(0.5.dp)
-                .background(MaterialTheme.colors.secondary)
+                .background(HelpsTheme.colors.secondary)
         )
     }
 }

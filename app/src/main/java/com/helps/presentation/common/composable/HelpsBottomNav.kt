@@ -17,6 +17,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.helps.presentation.HelpsBottomNavTab
+import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsBottomNav(
@@ -58,8 +59,8 @@ private fun HelpsBottomNavigationBar(
     onBottomNavClicked: (HelpsBottomNavTab) -> Unit
 ) {
     BottomNavigation(
-        backgroundColor = MaterialTheme.colors.secondary,
-        contentColor = MaterialTheme.colors.onSecondary,
+        backgroundColor = HelpsTheme.colors.secondary,
+        contentColor = HelpsTheme.colors.primary,
         modifier = Modifier.height(64.dp)
     ) {
         HelpsBottomNavTab.values().forEach { bottomNavTab ->

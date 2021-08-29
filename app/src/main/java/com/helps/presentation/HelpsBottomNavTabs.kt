@@ -43,9 +43,5 @@ enum class HelpsBottomNavTab(
         fun getRoutesList(): List<String> = values()
             .flatMap { it.destinationScreens }
             .map { it.route }
-
-        private fun siema() {
-
-        }
     }
 }

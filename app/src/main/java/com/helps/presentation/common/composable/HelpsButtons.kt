@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsButtonPrimary(label: String, onClick: () -> Unit) {
@@ -28,12 +28,12 @@ fun HelpsButtonSecondary(label: String, onClick: () -> Unit) {
 private fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButtonVariant) {
     val buttonColors: HelpsButtonColors = when (variant) {
         HelpsButtonVariant.PRIMARY -> HelpsButtonColors(
-            background = MaterialTheme.colors.primary,
-            content = MaterialTheme.colors.secondary
+            background = HelpsTheme.colors.primary,
+            content = HelpsTheme.colors.secondary
         )
         HelpsButtonVariant.SECONDARY -> HelpsButtonColors(
-            background = MaterialTheme.colors.secondary,
-            content = MaterialTheme.colors.primary
+            background = HelpsTheme.colors.secondary,
+            content = HelpsTheme.colors.primary
         )
     }
 

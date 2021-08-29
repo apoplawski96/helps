@@ -9,16 +9,18 @@ import androidx.compose.material.icons.filled.Camera
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.helps.presentation.common.composable.*
+import com.helps.presentation.common.theme.HelpsTheme
 import com.helps.presentation.helps.HelpsHeader
 
 @Composable
 fun HelpsAddNewScreen(navController: NavController) {
-    Surface(color = MaterialTheme.colors.primary) {
+    Surface(color = HelpsTheme.colors.primary) {
         HelpsDestinationScaffold() {
             HelpsAddNewScreenContent()
         }
@@ -46,7 +48,7 @@ private fun HelpsAddNewScreenContent() {
 
 @Composable
 private fun HelpsAddOptionsBar() {
-    Card(elevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+    Card(elevation = 10.dp, modifier = Modifier.fillMaxWidth(), backgroundColor = Color.Transparent) {
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
@@ -69,7 +71,7 @@ private fun HelpsAddOption(label: String, icon: ImageVector, onClick: () -> Unit
             verticalArrangement = Arrangement.Center
         ) {
             IconButton(onClick = onClick) {
-                Icon(imageVector = icon, contentDescription = null)
+                Icon(imageVector = icon, contentDescription = null, tint = HelpsTheme.colors.secondary)
             }
             HelpsText(text = label)
         }

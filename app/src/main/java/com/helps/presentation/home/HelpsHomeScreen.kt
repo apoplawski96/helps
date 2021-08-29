@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
@@ -21,10 +20,11 @@ import androidx.navigation.NavController
 import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.common.composable.HelpsDestinationScaffold
 import com.helps.presentation.common.composable.HelpsText
+import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsHomeScreen(navController: NavController) {
-    Surface(color = MaterialTheme.colors.surface) {
+    Surface(color = HelpsTheme.colors.primary) {
         HelpsDestinationScaffold() {
             HelpsHomeScreenContent(
                 onAddHelpsClick = { navController.navigate(HelpsDestinations.MainSection.addHelpsScreen.route) }
@@ -56,13 +56,13 @@ private fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> U
             modifier = Modifier
                 .size(200.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.secondaryVariant)
+                .background(HelpsTheme.colors.secondaryVariant)
         )
         Box(
             modifier = Modifier
                 .size(170.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.secondary)
+                .background(HelpsTheme.colors.secondary)
         )
         Column(
             verticalArrangement = Arrangement.Center,
@@ -72,11 +72,11 @@ private fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> U
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.onSecondary,
+                    tint = HelpsTheme.colors.primary,
                     modifier = Modifier.size(100.dp)
                 )
             }
-            HelpsText(text = label, color = MaterialTheme.colors.onSecondary)
+            HelpsText(text = label, color = HelpsTheme.colors.primary)
         }
     }
 }
@@ -84,5 +84,5 @@ private fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> U
 @Preview
 @Composable
 private fun HelpsHomeScreenPreview() {
-    HelpsHomeScreenContent({})
+    HelpsHomeScreenContent {}
 }

@@ -1,7 +1,6 @@
 package com.helps.presentation.start.auth.guest
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,10 +12,11 @@ import com.helps.presentation.common.composable.HelpsButtonSecondary
 import com.helps.presentation.common.composable.HelpsMottoText
 import com.helps.presentation.common.composable.HelpsRootScaffold
 import com.helps.presentation.common.composable.HelpsTextField
+import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsGuestScreen(navController: NavController) {
-    Surface(color = MaterialTheme.colors.surface) {
+    Surface(color = HelpsTheme.colors.primary) {
         HelpsRootScaffold(navController = navController, bottomBar = null) {
             HelpsGuestScreenContent(
                 onGetInButtonClicked = { navController.navigate(HelpsDestinations.BottomNavRoots.home.route) }
