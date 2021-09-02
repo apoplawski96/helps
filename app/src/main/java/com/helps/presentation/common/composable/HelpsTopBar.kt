@@ -12,24 +12,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
 fun HelpsTopBar(navController: NavController? = null) {
-    val actionBarHeight = 50.dp
-    val statusBarHeight = 30.dp
-    val topBarHeight = statusBarHeight + actionBarHeight
-    val hasBackNavigation = navController != null
-
     TopAppBar(
         elevation = 0.dp,
         backgroundColor = Color.Transparent,
-        modifier = Modifier.height(topBarHeight)
+        modifier = Modifier.statusBarsPadding()
     ) {
-        Column() {
-            Spacer(modifier = Modifier.height(24.dp))
-            ActionBar(hasBackNavigation) {
-                navController?.popBackStack()
-            }
+        Column {
+            ActionBar(
+                withBackNavigation = navController != null,
+                onBackNavigationClick = { navController?.popBackStack() }
+            )
         }
     }
 }
@@ -37,10 +33,7 @@ fun HelpsTopBar(navController: NavController? = null) {
 @Composable
 private fun ActionBar(withBackNavigation: Boolean, onBackNavigationClick: () -> Unit) {
     Box(
-        modifier = Modifier
-            .height(50.dp)
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
+        modifier = Modifier.padding(vertical = 8.dp)
     ) {
         HelpsLogoOverlay()
         if (withBackNavigation) BackNavigationOverlay(onBackNavigationClick)
@@ -64,9 +57,7 @@ private fun HelpsLogoOverlay() {
         horizontalArrangement = Arrangement.Start
     ) {
         HelpsLogo(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

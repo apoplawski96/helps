@@ -16,6 +16,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.accompanist.insets.navigationBarsPadding
 import com.helps.presentation.HelpsBottomNavTab
 import com.helps.presentation.common.theme.HelpsTheme
 
@@ -49,7 +50,6 @@ private fun HelpsBottomNav(
                 onBottomNavClicked = onBottomNavClicked
             )
         }
-        SystemNavigationBarOffset()
     }
 }
 
@@ -61,7 +61,7 @@ private fun HelpsBottomNavigationBar(
     BottomNavigation(
         backgroundColor = HelpsTheme.colors.secondary,
         contentColor = HelpsTheme.colors.primary,
-        modifier = Modifier.height(64.dp)
+        modifier = Modifier.navigationBarsPadding()
     ) {
         HelpsBottomNavTab.values().forEach { bottomNavTab ->
             BottomNavigationItem(
@@ -80,11 +80,6 @@ private fun HelpsBottomNavigationBar(
             )
         }
     }
-}
-
-@Composable
-private fun SystemNavigationBarOffset() {
-    Spacer(modifier = Modifier.height(44.dp))
 }
 
 private fun isRouteSelected(
