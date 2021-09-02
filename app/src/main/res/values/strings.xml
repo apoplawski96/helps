@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Helps</string>
-    <string name="title_activity_helps">HelpsActivity</string>
+    <string name="title_activity_helps" translatable="false">HelpsActivity</string>
+    <string name="localized_string">henlo</string>
 </resources>

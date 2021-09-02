@@ -18,16 +18,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.helps.presentation.HelpsDestinations
-import com.helps.presentation.common.composable.HelpsDestinationScaffold
+import com.helps.presentation.common.composable.HelpsScreenScaffold
 import com.helps.presentation.common.composable.HelpsText
 import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsHomeScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsDestinationScaffold() {
+        HelpsScreenScaffold() {
             HelpsHomeScreenContent(
-                onAddHelpsClick = { navController.navigate(HelpsDestinations.MainSection.addHelpsScreen.route) }
+                onAddHelpsClick = { navController.navigate(HelpsDestinations.MainSection.addHelpsScreen.route) },
+                onSearchHelpsClick = { navController.navigate(HelpsDestinations.MainSection.searchHelpsScreen.route) }
             )
         }
     }
@@ -35,7 +36,8 @@ fun HelpsHomeScreen(navController: NavController) {
 
 @Composable
 private fun HelpsHomeScreenContent(
-    onAddHelpsClick: () -> Unit
+    onAddHelpsClick: () -> Unit,
+    onSearchHelpsClick: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Top,
@@ -45,7 +47,7 @@ private fun HelpsHomeScreenContent(
             .padding(top = 24.dp)
     ) {
         HelpsCircleButton(Icons.Default.Doorbell, "Add Helps", onClick = onAddHelpsClick)
-        HelpsCircleButton(Icons.Default.Chat, "Be a Hero!", onClick = { })
+        HelpsCircleButton(Icons.Default.Chat, "Be a Hero!", onClick = onSearchHelpsClick)
     }
 }
 
@@ -84,5 +86,5 @@ private fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> U
 @Preview
 @Composable
 private fun HelpsHomeScreenPreview() {
-    HelpsHomeScreenContent {}
+    HelpsHomeScreenContent({}, {})
 }

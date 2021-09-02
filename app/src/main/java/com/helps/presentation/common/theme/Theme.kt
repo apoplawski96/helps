@@ -5,7 +5,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 val HelpsThemeGreen = Color(0xFF2FCC71)
 val HelpsThemeDarkGreen = Color(0xFF27C463)
@@ -48,7 +50,16 @@ fun HelpsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    val systemUiController = rememberSystemUiController()
     val colors = if (darkTheme) DarkColorPalette else LightColorPalette
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.Transparent,
+            darkIcons = true
+        )
+        systemUiController.setNavigationBarColor(Color.Black)
+    }
 
     ProvideHelpsColors(colors = colors) {
         MaterialTheme(

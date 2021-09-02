@@ -18,6 +18,7 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.helps.presentation.helps.active.HelpsActiveScreen
 import com.helps.presentation.helps.add.HelpsAddNewScreen
 import com.helps.presentation.helps.pending.HelpsPendingScreen
+import com.helps.presentation.helps.search.HelpsSearchScreen
 import com.helps.presentation.home.HelpsHomeScreen
 import com.helps.presentation.profile.HelpsUserProfileScreen
 import com.helps.presentation.start.auth.guest.HelpsGuestScreen
@@ -26,16 +27,7 @@ import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 
 @ExperimentalAnimationApi
 @Composable
-fun HelpsNavHost(navController: NavHostController, systemUiController: SystemUiController) {
-
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = Color.Transparent,
-            darkIcons = true
-        )
-        systemUiController.setNavigationBarColor(Color.Black)
-    }
-
+fun HelpsNavHost(navController: NavHostController) {
     AnimatedNavHost(
         navController = navController,
         startDestination = HelpsDestinations.StartSection.startScreen.route,
@@ -206,6 +198,6 @@ private fun helpsSearchScreen(
     builder.composable(
         route = HelpsDestinations.MainSection.searchHelpsScreen.route
     ) {
-        HelpsAddNewScreen(navController = navController)
+        HelpsSearchScreen(navController = navController)
     }
 }

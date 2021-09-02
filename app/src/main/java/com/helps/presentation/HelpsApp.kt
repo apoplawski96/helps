@@ -7,8 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.helps.presentation.common.composable.HelpsRootScaffold
+import com.helps.presentation.common.composable.HelpsBottomNavScaffold
 import com.helps.presentation.common.theme.HelpsTheme
 
 @ExperimentalAnimationApi
@@ -20,12 +19,11 @@ fun HelpsApp() {
             modifier = Modifier.fillMaxSize()
         ) {
             val navController = rememberAnimatedNavController()
-            val systemUiController = rememberSystemUiController()
 
-            HelpsRootScaffold(
+            HelpsBottomNavScaffold(
                 navController = navController,
             ) {
-                HelpsNavHost(navController, systemUiController)
+                HelpsNavHost(navController)
             }
         }
     }

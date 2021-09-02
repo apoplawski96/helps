@@ -1,4 +1,4 @@
-package com.helps.presentation.helps.active
+package com.helps.presentation.helps.search
 
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -9,15 +9,15 @@ import com.helps.presentation.helps.HelpsList
 import com.helps.presentation.helps.getMockItems
 
 @Composable
-fun HelpsActiveScreen(navController: NavController) {
+fun HelpsSearchScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsScreenScaffold() {
-            HelpsActiveScreenContent()
+            HelpsSearchScreenContent()
         }
     }
 }
 
 @Composable
-private fun HelpsActiveScreenContent() {
-    HelpsList(items = getMockItems(), listHeaderText = "Your active Helps")
+private fun HelpsSearchScreenContent() {
+    HelpsList(items = getMockItems(), listHeaderText = "Want to help someone?")
 }

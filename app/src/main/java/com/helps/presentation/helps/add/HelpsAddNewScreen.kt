@@ -1,7 +1,6 @@
 package com.helps.presentation.helps.add
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLocation
@@ -11,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.helps.presentation.common.composable.*
@@ -21,7 +19,7 @@ import com.helps.presentation.helps.HelpsHeader
 @Composable
 fun HelpsAddNewScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsDestinationScaffold() {
+        HelpsScreenScaffold() {
             HelpsAddNewScreenContent()
         }
     }

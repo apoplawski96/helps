@@ -11,14 +11,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.navigation.NavController
 import com.helps.presentation.common.composable.HelpsButtonSecondary
 import com.helps.presentation.common.composable.HelpsMottoText
-import com.helps.presentation.common.composable.HelpsRootScaffold
+import com.helps.presentation.common.composable.HelpsBottomNavScaffold
 import com.helps.presentation.common.composable.HelpsTextField
 import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsCreateAccountScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsRootScaffold(navController = navController, bottomBar = null) {
+        HelpsBottomNavScaffold(navController = navController, bottomBar = null) {
             HelpsCreateAccountScreenContent()
         }
     }
