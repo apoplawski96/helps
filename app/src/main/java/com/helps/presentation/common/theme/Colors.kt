@@ -93,7 +93,7 @@ val LocalHelpsColors = staticCompositionLocalOf<HelpsColors> {
 
 fun debugColors(
     darkTheme: Boolean,
-    debugColor: Color = Color.Magenta
+    debugColor: Color = Color.Transparent
 ) = Colors(
     primary = debugColor,
     primaryVariant = debugColor,

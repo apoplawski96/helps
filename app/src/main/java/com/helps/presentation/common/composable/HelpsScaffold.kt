@@ -1,5 +1,7 @@
 package com.helps.presentation.common.composable
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -10,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 
+@ExperimentalAnimationApi
 @Composable
 fun HelpsBottomNavScaffold(
     navController: NavController,
@@ -20,7 +23,7 @@ fun HelpsBottomNavScaffold(
         bottomBar = { bottomBar?.invoke() },
         backgroundColor = Color.Transparent
     ) {
-        Box(modifier = Modifier.padding(it)) {
+        Box(modifier = Modifier.padding(it).background(Color.Transparent)) {
             content(it)
         }
     }
@@ -36,7 +39,7 @@ fun HelpsScreenScaffold(
         topBar = { if (topBarMode != TopBarMode.NONE) HelpsTopBar(navController, topBarMode) },
         backgroundColor = Color.Transparent
     ) {
-        Box(modifier = Modifier.padding(it)) {
+        Box(modifier = Modifier.padding(it).background(Color.Transparent)) {
             content(it)
         }
     }

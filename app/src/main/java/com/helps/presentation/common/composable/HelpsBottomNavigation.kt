@@ -1,5 +1,7 @@
 package com.helps.presentation.common.composable
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
@@ -22,6 +24,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.helps.presentation.HelpsBottomNavTab
 import com.helps.presentation.common.theme.HelpsTheme
 
+@ExperimentalAnimationApi
 @Composable
 fun HelpsBottomNavigation(
     navController: NavController
@@ -29,6 +32,7 @@ fun HelpsBottomNavigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val bottomNavRoutesList = HelpsBottomNavTab.getRoutesList()
+    val bottomNavEnabled = currentDestination?.route in bottomNavRoutesList
 
     fun onBottomNavItemClicked(
         navController: NavController,
@@ -43,7 +47,7 @@ fun HelpsBottomNavigation(
         }
     }
 
-    if (currentDestination?.route in bottomNavRoutesList) {
+    AnimatedVisibility(visible = bottomNavEnabled) {
         HelpsBottomNavigationContent(
             onBottomNavClicked = {
                 onBottomNavItemClicked(navController = navController, destination = it)
@@ -60,7 +64,8 @@ private fun HelpsBottomNavigationContent(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.background(Color.Transparent)
     ) {
         Spacer(
             modifier = Modifier
