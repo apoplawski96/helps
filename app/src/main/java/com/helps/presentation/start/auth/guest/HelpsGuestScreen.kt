@@ -20,7 +20,7 @@ import com.helps.presentation.common.theme.HelpsTheme
 @Composable
 fun HelpsGuestScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsScreenScaffold(topBar = { HelpsTopBar(navController = navController) }) {
+        HelpsScreenScaffold(topBarMode = TopBarMode.WITH_BACK_NAVIGATION) {
             HelpsGuestScreenContent(
                 onGetInButtonClicked = { navController.navigate(HelpsDestinations.BottomNavRoots.home.route) }
             )

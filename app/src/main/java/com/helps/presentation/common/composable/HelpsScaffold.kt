@@ -28,11 +28,12 @@ fun HelpsBottomNavScaffold(
 
 @Composable
 fun HelpsScreenScaffold(
-    topBar: (@Composable () -> Unit)? = { HelpsTopBar(null) },
+    navController: NavController? = null,
+    topBarMode: TopBarMode = TopBarMode.NO_BACK_NAVIGATION,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        topBar = { topBar?.invoke() },
+        topBar = { if (topBarMode != TopBarMode.NONE) HelpsTopBar(navController, topBarMode) },
         backgroundColor = Color.Transparent
     ) {
         Box(modifier = Modifier.padding(it)) {

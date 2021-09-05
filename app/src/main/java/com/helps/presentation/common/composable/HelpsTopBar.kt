@@ -15,8 +15,14 @@ import androidx.navigation.NavController
 import com.google.accompanist.insets.statusBarsPadding
 import com.helps.presentation.common.theme.HelpsTheme
 
+enum class TopBarMode {
+    WITH_BACK_NAVIGATION,
+    NO_BACK_NAVIGATION,
+    NONE
+}
+
 @Composable
-fun HelpsTopBar(navController: NavController? = null) {
+fun HelpsTopBar(navController: NavController? = null, mode: TopBarMode) {
     TopAppBar(
         elevation = 0.dp,
         backgroundColor = Color.Transparent,
@@ -24,7 +30,7 @@ fun HelpsTopBar(navController: NavController? = null) {
     ) {
         Column {
             ActionBar(
-                withBackNavigation = navController != null,
+                mode = mode,
                 onBackNavigationClick = { navController?.popBackStack() }
             )
         }
@@ -32,12 +38,12 @@ fun HelpsTopBar(navController: NavController? = null) {
 }
 
 @Composable
-private fun ActionBar(withBackNavigation: Boolean, onBackNavigationClick: () -> Unit) {
+private fun ActionBar(mode: TopBarMode, onBackNavigationClick: () -> Unit) {
     Box(
         modifier = Modifier.padding(vertical = 8.dp)
     ) {
         HelpsLogoOverlay()
-        if (withBackNavigation) BackNavigationOverlay(onBackNavigationClick)
+        if (mode == TopBarMode.WITH_BACK_NAVIGATION) BackNavigationOverlay(onBackNavigationClick)
     }
 }
 
@@ -78,5 +84,5 @@ private fun BackNavigationIcon(onClick: () -> Unit) {
 @Preview
 @Composable
 private fun HelpsTopBarPreview() {
-    HelpsTopBar(null)
+    HelpsTopBar(null, TopBarMode.WITH_BACK_NAVIGATION)
 }
