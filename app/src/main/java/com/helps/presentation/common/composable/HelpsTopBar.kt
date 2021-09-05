@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.insets.statusBarsPadding
+import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsTopBar(navController: NavController? = null) {
@@ -68,7 +69,8 @@ private fun BackNavigationIcon(onClick: () -> Unit) {
         Icon(
             imageVector = Icons.Filled.ChevronLeft,
             contentDescription = "Back button",
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            tint = HelpsTheme.colors.secondary
         )
     }
 }

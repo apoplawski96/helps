@@ -3,6 +3,7 @@ package com.helps.presentation.common.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
@@ -23,15 +25,16 @@ import com.helps.presentation.common.theme.HelpsTheme
 import com.helps.presentation.common.theme.HelpsThemeDarkGrey
 
 @Composable
-fun HelpsMottoText(text: String) {
+fun HelpsMottoText(text: String, size: TextUnit = 22.sp) {
     Text(
         text = text,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium,
         modifier = Modifier.padding(16.dp),
         style = TextStyle(
-            fontSize = 24.sp,
+            fontSize = size,
             color = HelpsTheme.colors.secondary,
+            lineHeight = 30.sp
         ),
     )
 }
@@ -50,7 +53,9 @@ fun HelpsText(
 fun HelpsTextField(
     text: String,
     label: String,
+    leadingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onTextChanged: (String) -> Unit,
 ) {
     Column(
@@ -58,16 +63,21 @@ fun HelpsTextField(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        OutlinedTextField(
+        TextField(
             value = text,
             onValueChange = onTextChanged,
             label = { Text(label) },
+            leadingIcon = leadingIcon,
             visualTransformation = visualTransformation,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = HelpsTheme.colors.secondary,
-                unfocusedBorderColor = HelpsTheme.colors.secondary,
-                focusedLabelColor = HelpsTheme.colors.secondary,
-                unfocusedLabelColor = HelpsTheme.colors.secondary
+            keyboardOptions = keyboardOptions,
+            colors = TextFieldDefaults.textFieldColors(
+                cursorColor = HelpsTheme.colors.textOnPrimary,
+                focusedIndicatorColor = HelpsTheme.colors.secondary,
+                unfocusedIndicatorColor = HelpsTheme.colors.secondary,
+                unfocusedLabelColor = HelpsTheme.colors.secondaryVariant,
+                focusedLabelColor = HelpsTheme.colors.textOnPrimary,
+                backgroundColor = HelpsTheme.colors.primaryVariant,
+                textColor = HelpsTheme.colors.textOnPrimary,
             )
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -78,6 +88,33 @@ fun HelpsTextField(
                 .background(HelpsTheme.colors.secondary)
         )
     }
+
+//    Column(
+//        modifier = Modifier.padding(vertical = 24.dp),
+//        verticalArrangement = Arrangement.Top,
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        HelpsText(text = label)
+//        OutlinedTextField(
+//            value = text,
+//            onValueChange = onTextChanged,
+//            label = { Text(label) },
+//            visualTransformation = visualTransformation,
+//            colors = TextFieldDefaults.outlinedTextFieldColors(
+//                focusedBorderColor = Color.Transparent,
+//                unfocusedBorderColor = Color.Transparent,
+//                focusedLabelColor = Color.Transparent,
+//                unfocusedLabelColor = Color.Transparent
+//            )
+//        )
+//        Spacer(modifier = Modifier.height(20.dp))
+//        Spacer(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(0.5.dp)
+//                .background(HelpsTheme.colors.secondary)
+//        )
+//    }
 }
 
 @Composable
@@ -93,7 +130,10 @@ fun HelpsTextFieldBoxBig(text: String, height: Dp, onTextChanged: (String) -> Un
             unfocusedIndicatorColor = Color.Transparent,
             textColor = HelpsThemeDarkGrey
         ),
-        modifier = Modifier.fillMaxWidth().height(height).padding(horizontal = 24.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .padding(horizontal = 24.dp)
     )
 }
 

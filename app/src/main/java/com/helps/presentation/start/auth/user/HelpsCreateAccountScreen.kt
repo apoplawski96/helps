@@ -3,22 +3,25 @@ package com.helps.presentation.start.auth.user
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Icon
 import androidx.compose.material.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Password
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.navigation.NavController
-import com.helps.presentation.common.composable.HelpsButtonSecondary
-import com.helps.presentation.common.composable.HelpsMottoText
-import com.helps.presentation.common.composable.HelpsBottomNavScaffold
-import com.helps.presentation.common.composable.HelpsTextField
+import com.helps.presentation.common.composable.*
 import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsCreateAccountScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsBottomNavScaffold(navController = navController, bottomBar = null) {
+        HelpsScreenScaffold(topBar = { HelpsTopBar(navController = navController) }) {
             HelpsCreateAccountScreenContent()
         }
     }
@@ -37,26 +40,55 @@ private fun HelpsCreateAccountScreenContent() {
         var confirmPasswordText by remember { mutableStateOf("") }
 
         HelpsMottoText(text = "Create an account")
-        HelpsTextField(text = usernameText, label = "Username") {
-            usernameText = it
-        }
-        HelpsTextField(text = emailText, label = "Email Address") {
-            emailText = it
-        }
+        HelpsTextField(
+            text = usernameText,
+            label = "Username",
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "",
+                    tint = HelpsTheme.colors.secondaryVariant
+                )
+            },
+            onTextChanged = { usernameText = it }
+        )
+        HelpsTextField(
+            text = emailText,
+            label = "Email Address",
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Email,
+                    contentDescription = "",
+                    tint = HelpsTheme.colors.secondaryVariant
+                )
+            },
+            onTextChanged = { emailText = it }
+        )
         HelpsTextField(
             text = passwordText,
             label = "Password",
-            visualTransformation = PasswordVisualTransformation()
-        ) {
-            passwordText = it
-        }
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Password,
+                    contentDescription = "",
+                    tint = HelpsTheme.colors.secondaryVariant
+                )
+            },
+            onTextChanged = { passwordText = it }
+        )
         HelpsTextField(
             text = confirmPasswordText,
             label = "Confirm Password",
-            visualTransformation = PasswordVisualTransformation()
-        ) {
-            confirmPasswordText = it
-        }
+            visualTransformation = PasswordVisualTransformation(),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Password,
+                    contentDescription = "",
+                    tint = HelpsTheme.colors.secondaryVariant
+                )
+            },
+            onTextChanged = { confirmPasswordText = it }
+        )
         HelpsButtonSecondary(label = "Create an account") {
 
         }
