@@ -15,20 +15,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.navigation.NavController
+import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.common.composable.*
 import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
 fun HelpsCreateAccountScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsScreenScaffold(navController = navController, topBarMode = TopBarMode.WITH_BACK_NAVIGATION) {
-            HelpsCreateAccountScreenContent()
+        HelpsScreenScaffold(
+            navController = navController,
+            topBarMode = TopBarMode.WITH_BACK_NAVIGATION
+        ) {
+            HelpsCreateAccountScreenContent(onCreateAccountButtonClick = {
+                navController.navigate(
+                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
+                )
+            })
         }
     }
 }
 
 @Composable
-private fun HelpsCreateAccountScreenContent() {
+private fun HelpsCreateAccountScreenContent(
+    onCreateAccountButtonClick: () -> Unit
+) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,8 +75,6 @@ private fun HelpsCreateAccountScreenContent() {
             leadingIcon = Icons.Default.Password,
             onTextChanged = { confirmPasswordText = it }
         )
-        HelpsButtonSecondary(label = "Create an account") {
-
-        }
+        HelpsButtonSecondary(label = "Create an account", onClick = onCreateAccountButtonClick)
     }
 }

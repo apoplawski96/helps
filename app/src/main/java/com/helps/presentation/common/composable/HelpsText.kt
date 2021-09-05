@@ -43,11 +43,12 @@ fun HelpsMottoText(text: String, size: TextUnit = 22.sp) {
 @Composable
 fun HelpsText(
     text: String,
+    modifier: Modifier = Modifier,
     color: Color = HelpsTheme.colors.secondary,
     size: TextUnit = TextUnit.Unspecified,
     fontWeight: FontWeight? = null
 ) {
-    Text(text = text, color = color, fontSize = size, fontWeight = fontWeight)
+    Text(text = text, color = color, fontSize = size, fontWeight = fontWeight, modifier = modifier)
 }
 
 @Composable
