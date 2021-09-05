@@ -43,25 +43,13 @@ private fun HelpsGuestScreenContent(onGetInButtonClicked: () -> Unit) {
         HelpsTextField(
             text = usernameText,
             label = "Username",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "",
-                    tint = HelpsTheme.colors.secondaryVariant
-                )
-            },
+            leadingIcon = Icons.Default.Person,
             onTextChanged = { usernameText = it }
         )
         HelpsTextField(
             text = phoneNumberText,
             label = "Phone number",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Phone,
-                    contentDescription = "",
-                    tint = HelpsTheme.colors.secondaryVariant
-                )
-            },
+            leadingIcon = Icons.Default.Phone,
             onTextChanged = { phoneNumberText = it },
         )
         Spacer(modifier = Modifier.height(64.dp))

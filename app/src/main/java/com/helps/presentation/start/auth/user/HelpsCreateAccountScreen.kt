@@ -43,50 +43,26 @@ private fun HelpsCreateAccountScreenContent() {
         HelpsTextField(
             text = usernameText,
             label = "Username",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "",
-                    tint = HelpsTheme.colors.secondaryVariant
-                )
-            },
+            leadingIcon = Icons.Default.Person,
             onTextChanged = { usernameText = it }
         )
         HelpsTextField(
             text = emailText,
             label = "Email Address",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = "",
-                    tint = HelpsTheme.colors.secondaryVariant
-                )
-            },
+            leadingIcon = Icons.Default.Email,
             onTextChanged = { emailText = it }
         )
         HelpsTextField(
             text = passwordText,
             label = "Password",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Password,
-                    contentDescription = "",
-                    tint = HelpsTheme.colors.secondaryVariant
-                )
-            },
+            leadingIcon = Icons.Default.Password,
             onTextChanged = { passwordText = it }
         )
         HelpsTextField(
             text = confirmPasswordText,
             label = "Confirm Password",
             visualTransformation = PasswordVisualTransformation(),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Password,
-                    contentDescription = "",
-                    tint = HelpsTheme.colors.secondaryVariant
-                )
-            },
+            leadingIcon = Icons.Default.Password,
             onTextChanged = { confirmPasswordText = it }
         )
         HelpsButtonSecondary(label = "Create an account") {

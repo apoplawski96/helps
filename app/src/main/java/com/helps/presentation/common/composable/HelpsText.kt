@@ -53,7 +53,7 @@ fun HelpsText(
 fun HelpsTextField(
     text: String,
     label: String,
-    leadingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: ImageVector,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onTextChanged: (String) -> Unit,
@@ -67,15 +67,21 @@ fun HelpsTextField(
             value = text,
             onValueChange = onTextChanged,
             label = { Text(label) },
-            leadingIcon = leadingIcon,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
+            leadingIcon = {
+                Icon(
+                    imageVector = leadingIcon,
+                    contentDescription = "",
+                    tint = HelpsTheme.colors.secondary
+                )
+            },
             colors = TextFieldDefaults.textFieldColors(
                 cursorColor = HelpsTheme.colors.textOnPrimary,
                 focusedIndicatorColor = HelpsTheme.colors.secondary,
                 unfocusedIndicatorColor = HelpsTheme.colors.secondary,
-                unfocusedLabelColor = HelpsTheme.colors.secondaryVariant,
-                focusedLabelColor = HelpsTheme.colors.textOnPrimary,
+                unfocusedLabelColor = HelpsTheme.colors.secondary,
+                focusedLabelColor = HelpsTheme.colors.secondaryVariant,
                 backgroundColor = HelpsTheme.colors.primaryVariant,
                 textColor = HelpsTheme.colors.textOnPrimary,
             )

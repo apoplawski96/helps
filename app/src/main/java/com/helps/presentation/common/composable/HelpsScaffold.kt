@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 @Composable
 fun HelpsBottomNavScaffold(
     navController: NavController,
-    bottomBar: (@Composable () -> Unit)? = { HelpsBottomNav(navController) },
+    bottomBar: (@Composable () -> Unit)? = { HelpsBottomNavigation(navController) },
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(

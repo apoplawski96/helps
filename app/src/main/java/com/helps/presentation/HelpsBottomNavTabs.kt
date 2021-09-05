@@ -5,6 +5,10 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Pending
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.More
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.PendingActions
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class HelpsBottomNavTab(
@@ -16,25 +20,25 @@ enum class HelpsBottomNavTab(
     HOME(
         route = "home_bottom_nav_root",
         label = "Home",
-        icon = Icons.Filled.Home,
+        icon = Icons.Outlined.Home,
         destinationScreens = listOf(HelpsDestinations.MainSection.BottomNavSection.homeScreen)
     ),
     ACTIVE_HELPS(
         route = "active_helps_bottom_nav_root",
         label = "Active",
-        icon = Icons.Filled.NotificationsActive,
+        icon = Icons.Outlined.Notifications,
         destinationScreens = listOf(HelpsDestinations.MainSection.BottomNavSection.activeHelpsScreen)
     ),
     PENDING_HELPS(
         route = "pending_helps_bottom_nav_root",
         label = "Pending",
-        icon = Icons.Filled.Pending,
+        icon = Icons.Outlined.PendingActions,
         destinationScreens = listOf(HelpsDestinations.MainSection.BottomNavSection.pendingHelpsScreen),
     ),
     SETTINGS(
         route = "settings_bottom_nav_root",
         label = "settings",
-        icon = Icons.Filled.Settings,
+        icon = Icons.Outlined.More,
         destinationScreens = listOf(HelpsDestinations.MainSection.BottomNavSection.settingsScreen)
     );
 
