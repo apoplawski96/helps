@@ -4,9 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -124,27 +125,52 @@ fun HelpsTextField(
 }
 
 @Composable
-fun HelpsTextFieldBoxBig(text: String, height: Dp, onTextChanged: (String) -> Unit) {
+fun HelpsTextFieldRoundedBox(
+    text: String,
+    placeholderText: String,
+    labelText: String,
+    height: Dp, onTextChanged: (String) -> Unit
+) {
     TextField(
         value = text,
         onValueChange = onTextChanged,
-        label = { Text("") },
-        shape = RoundedCornerShape(8.dp),
+        label = {
+            HelpsText(
+                text = labelText,
+                color = HelpsTheme.colors.primary,
+                fontWeight = FontWeight.Medium
+            )
+        },
+        shape = RoundedCornerShape(16.dp),
+        placeholder = {
+            HelpsText(
+                text = placeholderText,
+                color = HelpsTheme.colors.secondaryVariant2
+            )
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .padding(horizontal = 24.dp),
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.White,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            textColor = HelpsThemeDarkGrey
+            textColor = HelpsThemeDarkGrey,
+            cursorColor = HelpsThemeDarkGrey,
+            focusedLabelColor = HelpsTheme.colors.primaryVariant,
+            unfocusedLabelColor = HelpsTheme.colors.primaryVariant
         ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(height)
-            .padding(horizontal = 24.dp)
     )
 }
 
 @Preview
 @Composable
 private fun HelpsTextFieldBoxBigPreview() {
-    HelpsTextFieldBoxBig(text = "Type your message", height = 128.dp) { }
+    HelpsTextFieldRoundedBox(
+        text = "Type your message",
+        height = 128.dp,
+        placeholderText = "Type your message",
+        labelText = "Hashtags"
+    ) { }
 }

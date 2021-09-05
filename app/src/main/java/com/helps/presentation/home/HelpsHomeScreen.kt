@@ -26,7 +26,7 @@ import com.helps.presentation.common.theme.HelpsThemeGrey
 @Composable
 fun HelpsHomeScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsScreenScaffold() {
+        HelpsScreenScaffold(navController = navController) {
             HelpsHomeScreenContent(
                 onAddHelpsClick = { navController.navigate(HelpsDestinations.MainSection.addHelpsScreen.route) },
                 onSearchHelpsClick = { navController.navigate(HelpsDestinations.MainSection.searchHelpsScreen.route) }

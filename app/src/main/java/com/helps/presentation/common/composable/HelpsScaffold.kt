@@ -28,7 +28,7 @@ fun HelpsBottomNavScaffold(
 
 @Composable
 fun HelpsScreenScaffold(
-    navController: NavController? = null,
+    navController: NavController,
     topBarMode: TopBarMode = TopBarMode.NO_BACK_NAVIGATION,
     content: @Composable (PaddingValues) -> Unit,
 ) {

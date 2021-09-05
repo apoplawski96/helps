@@ -22,7 +22,7 @@ enum class TopBarMode {
 }
 
 @Composable
-fun HelpsTopBar(navController: NavController? = null, mode: TopBarMode) {
+fun HelpsTopBar(navController: NavController, mode: TopBarMode) {
     TopAppBar(
         elevation = 0.dp,
         backgroundColor = Color.Transparent,
@@ -31,7 +31,7 @@ fun HelpsTopBar(navController: NavController? = null, mode: TopBarMode) {
         Column {
             ActionBar(
                 mode = mode,
-                onBackNavigationClick = { navController?.popBackStack() }
+                onBackNavigationClick = { navController.popBackStack() }
             )
         }
     }
@@ -79,10 +79,4 @@ private fun BackNavigationIcon(onClick: () -> Unit) {
             tint = HelpsTheme.colors.secondary
         )
     }
-}
-
-@Preview
-@Composable
-private fun HelpsTopBarPreview() {
-    HelpsTopBar(null, TopBarMode.WITH_BACK_NAVIGATION)
 }

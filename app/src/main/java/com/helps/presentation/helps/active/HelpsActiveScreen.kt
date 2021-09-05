@@ -11,7 +11,7 @@ import com.helps.presentation.helps.getMockItems
 @Composable
 fun HelpsActiveScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsScreenScaffold() {
+        HelpsScreenScaffold(navController) {
             HelpsActiveScreenContent()
         }
     }

@@ -10,7 +10,7 @@ import com.helps.presentation.common.theme.HelpsTheme
 @Composable
 fun HelpsUserProfileScreen(navController: NavController) {
     Surface(color = HelpsTheme.colors.primary) {
-        HelpsScreenScaffold() {
+        HelpsScreenScaffold(navController = navController) {
             HelpsUserProfileScreenContent()
         }
     }
