@@ -7,13 +7,13 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Chat
-import androidx.compose.material.icons.filled.Doorbell
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -21,6 +21,7 @@ import com.helps.presentation.HelpsDestinations
 import com.helps.presentation.common.composable.HelpsScreenScaffold
 import com.helps.presentation.common.composable.HelpsText
 import com.helps.presentation.common.theme.HelpsTheme
+import com.helps.presentation.common.theme.HelpsThemeGrey
 
 @Composable
 fun HelpsHomeScreen(navController: NavController) {
@@ -46,8 +47,8 @@ private fun HelpsHomeScreenContent(
             .fillMaxSize()
             .padding(top = 24.dp)
     ) {
-        HelpsCircleButton(Icons.Default.Doorbell, "Add Helps", onClick = onAddHelpsClick)
-        HelpsCircleButton(Icons.Default.Chat, "Be a Hero!", onClick = onSearchHelpsClick)
+        HelpsCircleButton(Icons.Default.NotificationAdd, "Add Helps", onClick = onAddHelpsClick)
+        HelpsCircleButton(Icons.Default.Groups, "Be a Hero!", onClick = onSearchHelpsClick)
     }
 }
 
@@ -58,7 +59,7 @@ private fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> U
             modifier = Modifier
                 .size(200.dp)
                 .clip(CircleShape)
-                .background(HelpsTheme.colors.secondaryVariant)
+                .background(HelpsTheme.colors.secondaryVariant2)
         )
         Box(
             modifier = Modifier
@@ -70,15 +71,19 @@ private fun HelpsCircleButton(icon: ImageVector, label: String, onClick: () -> U
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            IconButton(onClick = onClick) {
+            IconButton(onClick = onClick, modifier = Modifier.size(90.dp)) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = HelpsTheme.colors.primary,
-                    modifier = Modifier.size(100.dp)
+                    modifier = Modifier.size(90.dp)
                 )
             }
-            HelpsText(text = label, color = HelpsTheme.colors.primary)
+            HelpsText(
+                text = label,
+                color = HelpsTheme.colors.primary,
+                fontWeight = FontWeight.SemiBold,
+            )
         }
     }
 }

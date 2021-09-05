@@ -21,7 +21,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.insets.navigationBarsPadding
 import com.helps.presentation.HelpsBottomNavTab
 import com.helps.presentation.common.theme.HelpsTheme
-import com.helps.presentation.common.theme.HelpsThemeDarkGrey
 
 @Composable
 fun HelpsBottomNavigation(
@@ -66,8 +65,8 @@ private fun HelpsBottomNavigationContent(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1.dp)
-                .background(HelpsTheme.colors.secondaryVariant)
+                .height(0.7.dp)
+                .background(HelpsTheme.colors.secondaryVariant2)
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,

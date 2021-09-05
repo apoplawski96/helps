@@ -10,6 +10,7 @@ class HelpsColors(
     primaryVariant: Color,
     secondary: Color,
     secondaryVariant: Color,
+    secondaryVariant2: Color,
     textOnPrimary: Color,
     textOnSecondary: Color,
     textOnSecondaryButton: Color,
@@ -25,6 +26,8 @@ class HelpsColors(
     var secondary by mutableStateOf(secondary)
         private set
     var secondaryVariant by mutableStateOf(secondaryVariant)
+        private set
+    var secondaryVariant2 by mutableStateOf(secondaryVariant2)
         private set
     var textOnPrimary by mutableStateOf(textOnPrimary)
         private set
@@ -46,6 +49,7 @@ class HelpsColors(
         primaryVariant = other.primaryVariant
         secondary = other.secondary
         secondaryVariant = other.secondaryVariant
+        secondaryVariant2 = other.secondaryVariant2
         textOnPrimary = other.textOnPrimary
         textOnPrimaryButton = other.textOnPrimaryButton
         textOnSecondary = other.textOnSecondary
@@ -60,6 +64,7 @@ class HelpsColors(
         primaryVariant = primaryVariant,
         secondary = secondary,
         secondaryVariant = secondaryVariant,
+        secondaryVariant2 = secondaryVariant2,
         textOnPrimary = textOnPrimary,
         textOnSecondaryButton = textOnPrimaryButton,
         textOnSecondary = textOnSecondary,
@@ -82,7 +87,7 @@ fun ProvideHelpsColors(
     CompositionLocalProvider(LocalHelpsColors provides colorPalette, content = content)
 }
 
-val LocalHelpsColors = staticCompositionLocalOf <HelpsColors> {
+val LocalHelpsColors = staticCompositionLocalOf<HelpsColors> {
     error("No HelpsColorPalette provided")
 }
 
