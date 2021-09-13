@@ -1,4 +1,4 @@
-package com.helps.presentation.start.auth.guest
+package com.helps.presentation.auth.guest
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface

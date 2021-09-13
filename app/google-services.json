@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "425883151750",
+    "project_id": "helps-222eb",
+    "storage_bucket": "helps-222eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425883151750:android:886a62828d332fad919007",
+        "android_client_info": {
+          "package_name": "com.helps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425883151750-h8qmmq9vcuqmcrqv15cs97d5n5la814b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGBQy2Hs4w9dkYHcwPM9SrFMNnFzoMNRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425883151750-h8qmmq9vcuqmcrqv15cs97d5n5la814b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,24 +5,21 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.composable
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.systemuicontroller.SystemUiController
 import com.helps.presentation.helps.active.HelpsActiveScreen
 import com.helps.presentation.helps.add.HelpsAddNewScreen
 import com.helps.presentation.helps.pending.HelpsPendingScreen
 import com.helps.presentation.helps.search.HelpsSearchScreen
 import com.helps.presentation.home.HelpsHomeScreen
 import com.helps.presentation.profile.HelpsUserProfileScreen
-import com.helps.presentation.start.auth.guest.HelpsGuestScreen
-import com.helps.presentation.start.auth.user.HelpsCreateAccountScreen
+import com.helps.presentation.auth.guest.HelpsGuestScreen
+import com.helps.presentation.auth.create.HelpsCreateAccountScreen
 import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 
 @ExperimentalAnimationApi

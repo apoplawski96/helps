@@ -1,4 +1,4 @@
-package com.helps.framework
+package com.helps.domain.app
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
@@ -8,16 +8,14 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 import com.helps.domain.app.DoesNetworkHaveInternet
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ConnectivityLiveData (context: Context) : LiveData<Boolean>() {
-
-    companion object {
-        private const val TAG = "connectivity-manager"
-    }
+class ConnectivityLiveData @Inject constructor(@ApplicationContext context: Context) : LiveData<Boolean>() {
 
     private val connectivityManager = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
     private val validNetworks: MutableSet<Network> = HashSet()
