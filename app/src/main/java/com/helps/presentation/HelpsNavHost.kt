@@ -1,25 +1,26 @@
 package com.helps.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import com.google.accompanist.navigation.animation.composable
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.helps.presentation.auth.create.CreateAccountViewModel
+import com.helps.presentation.auth.create.HelpsCreateAccountScreen
+import com.helps.presentation.auth.guest.HelpsGuestScreen
 import com.helps.presentation.helps.active.HelpsActiveScreen
 import com.helps.presentation.helps.add.HelpsAddNewScreen
 import com.helps.presentation.helps.pending.HelpsPendingScreen
 import com.helps.presentation.helps.search.HelpsSearchScreen
 import com.helps.presentation.home.HelpsHomeScreen
 import com.helps.presentation.profile.HelpsUserProfileScreen
-import com.helps.presentation.auth.guest.HelpsGuestScreen
-import com.helps.presentation.auth.create.HelpsCreateAccountScreen
 import com.helps.presentation.start.welcome.HelpsWelcomeScreen
 
 @ExperimentalAnimationApi
@@ -30,11 +31,8 @@ fun HelpsNavHost(navController: NavHostController) {
         startDestination = HelpsDestinations.StartSection.startScreen.route,
         modifier = Modifier.fillMaxSize(),
         enterTransition = { _, _ ->
-            slideInHorizontally(initialOffsetX = { 1000 })
+            fadeIn(initialAlpha = 0.5f)
         },
-        exitTransition = { _, _ ->
-            slideOutHorizontally(targetOffsetX = { -1000 })
-        }
     ) {
         helpsStartScreen(
             builder = this,
@@ -46,7 +44,7 @@ fun HelpsNavHost(navController: NavHostController) {
         )
         helpsCreateAccountScreen(
             builder = this,
-            navController = navController
+            navController = navController,
         )
 
         helpsHomeScreenBottomNavRoot(
@@ -166,12 +164,15 @@ private fun helpsGuestScreen(
 @ExperimentalAnimationApi
 private fun helpsCreateAccountScreen(
     builder: NavGraphBuilder,
-    navController: NavController
+    navController: NavController,
 ) {
     builder.composable(
         route = HelpsDestinations.StartSection.createAccountScreen.route
     ) {
-        HelpsCreateAccountScreen(navController = navController)
+        HelpsCreateAccountScreen(
+            navController = navController,
+            viewModel = hiltViewModel()
+        )
     }
 }
 

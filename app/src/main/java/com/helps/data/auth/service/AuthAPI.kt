@@ -1,6 +1,7 @@
 package com.helps.data.auth.service
 
 import com.helps.data.model.UserEntity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 interface AuthAPI {
@@ -9,7 +10,7 @@ interface AuthAPI {
 
         data class Success(val user: UserEntity) : Result()
 
-        data class Failure(val authErrorType: AuthErrorType, val message: String?) : Result()
+        data class Failure(val errorType: ErrorType, val exception: Exception?) : Result()
 
         object PendingVerification : Result()
 
@@ -21,20 +22,23 @@ interface AuthAPI {
 
             fun pendingVerification(): Result = PendingVerification
 
-            fun failure(authErrorType: AuthErrorType, message: String? = null): Result =
-                Failure(authErrorType, message)
+            fun failure(errorType: ErrorType, exception: Exception?): Result =
+                Failure(errorType, exception)
 
             fun logout(): Result = Logout
         }
     }
 
-    enum class AuthErrorType {
+    enum class ErrorType {
         UNKNOWN
     }
 
+    @ExperimentalCoroutinesApi
     suspend fun createAccountWithEmailAndPassword(email: String, password: String): Flow<Result>
 
+    @ExperimentalCoroutinesApi
     suspend fun signInWithEmailAndPassword(email: String, password: String): Flow<Result>
 
+    @ExperimentalCoroutinesApi
     suspend fun logout(): Flow<Result>
 }

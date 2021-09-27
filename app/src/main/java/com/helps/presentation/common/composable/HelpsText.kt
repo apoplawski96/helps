@@ -130,7 +130,8 @@ fun HelpsTextFieldRoundedBox(
     text: String,
     placeholderText: String,
     labelText: String,
-    height: Dp, onTextChanged: (String) -> Unit
+    height: Dp,
+    onTextChanged: (String) -> Unit
 ) {
     TextField(
         value = text,

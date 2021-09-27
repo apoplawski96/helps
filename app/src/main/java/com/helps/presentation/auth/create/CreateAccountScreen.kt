@@ -18,24 +18,32 @@ import com.helps.presentation.common.composable.*
 import com.helps.presentation.common.theme.HelpsTheme
 
 @Composable
-fun HelpsCreateAccountScreen(navController: NavController) {
+fun HelpsCreateAccountScreen(
+    navController: NavController,
+    viewModel: CreateAccountViewModel
+) {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsScreenScaffold(
             navController = navController,
             topBarMode = TopBarMode.WITH_BACK_NAVIGATION
         ) {
-            HelpsCreateAccountScreenContent(onCreateAccountButtonClick = {
-                navController.navigate(
-                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
-                )
-            })
+            HelpsCreateAccountScreenContent(
+                authState = viewModel.authState.value,
+                onCreateAccountButtonClick = { email, password, username ->
+//                navController.navigate(
+//                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
+//                )
+                    viewModel.createAccount(email, password, username)
+                }
+            )
         }
     }
 }
 
 @Composable
 private fun HelpsCreateAccountScreenContent(
-    onCreateAccountButtonClick: () -> Unit
+    authState: Boolean,
+    onCreateAccountButtonClick: (email: String, password: String, username: String) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Top,
@@ -73,6 +81,16 @@ private fun HelpsCreateAccountScreenContent(
             leadingIcon = Icons.Default.Password,
             onTextChanged = { confirmPasswordText = it }
         )
-        HelpsButtonSecondary(label = "Create an account", onClick = onCreateAccountButtonClick)
+        HelpsButtonSecondary(
+            label = "Create an account",
+            onClick = {
+                onCreateAccountButtonClick(
+                    emailText,
+                    passwordText,
+                    usernameText
+                )
+            }
+        )
+        HelpsText(text = authState.toString())
     }
 }

@@ -1,6 +1,6 @@
 package com.helps.presentation
 
-import androidx.navigation.compose.NamedNavArgument
+import androidx.navigation.NamedNavArgument
 
 interface HelpsScreen {
 
