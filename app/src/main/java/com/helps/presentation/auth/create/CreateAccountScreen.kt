@@ -1,5 +1,6 @@
 package com.helps.presentation.auth.create
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,11 +13,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.helps.presentation.HelpsDestinations
+import com.helps.domain.auth.validator.EmailValidator
+import com.helps.domain.auth.validator.PasswordValidator
+import com.helps.domain.auth.validator.UsernameValidator
 import com.helps.presentation.common.composable.*
 import com.helps.presentation.common.theme.HelpsTheme
 
+@ExperimentalAnimationApi
 @Composable
 fun HelpsCreateAccountScreen(
     navController: NavController,
@@ -28,11 +33,11 @@ fun HelpsCreateAccountScreen(
             topBarMode = TopBarMode.WITH_BACK_NAVIGATION
         ) {
             HelpsCreateAccountScreenContent(
-                authState = viewModel.authState.value,
+                onPasswordTextChange = { viewModel.setPassword(it) },
+                onPasswordConfirmTextChange = { viewModel.setConfirmPassword(it) },
+                onEmailTextChange = { viewModel.setEmail(it) },
+                onUsernameTextChange = { viewModel.setUsername(it) },
                 onCreateAccountButtonClick = { email, password, username ->
-//                navController.navigate(
-//                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
-//                )
                     viewModel.createAccount(email, password, username)
                 }
             )
@@ -40,9 +45,13 @@ fun HelpsCreateAccountScreen(
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 private fun HelpsCreateAccountScreenContent(
-    authState: Boolean,
+    onUsernameTextChange: (String) -> Unit,
+    onEmailTextChange: (String) -> Unit,
+    onPasswordTextChange: (String) -> Unit,
+    onPasswordConfirmTextChange: (String) -> Unit,
     onCreateAccountButtonClick: (email: String, password: String, username: String) -> Unit
 ) {
     Column(
@@ -56,31 +65,49 @@ private fun HelpsCreateAccountScreenContent(
         var confirmPasswordText by remember { mutableStateOf("") }
 
         HelpsMottoText(text = "Create an account")
-        HelpsTextField(
+        HelpsHorizontalSpacer(height = 8.dp)
+        HelpsTextFieldWithValidation(
             text = usernameText,
             label = "Username",
             leadingIcon = Icons.Default.Person,
-            onTextChanged = { usernameText = it }
+            validator = UsernameValidator,
+            onTextChanged = {
+                usernameText = it
+                onUsernameTextChange(it)
+            }
         )
-        HelpsTextField(
+        HelpsTextFieldWithValidation(
             text = emailText,
             label = "Email Address",
             leadingIcon = Icons.Default.Email,
-            onTextChanged = { emailText = it }
+            validator = EmailValidator,
+            onTextChanged = {
+                emailText = it
+                onEmailTextChange(it)
+            }
         )
-        HelpsTextField(
+        HelpsTextFieldWithValidation(
             text = passwordText,
             label = "Password",
             leadingIcon = Icons.Default.Password,
-            onTextChanged = { passwordText = it }
+            validator = PasswordValidator,
+            onTextChanged = {
+                passwordText = it
+                onPasswordTextChange(it)
+            }
         )
-        HelpsTextField(
+        HelpsTextFieldWithValidation(
             text = confirmPasswordText,
             label = "Confirm Password",
             visualTransformation = PasswordVisualTransformation(),
             leadingIcon = Icons.Default.Password,
-            onTextChanged = { confirmPasswordText = it }
+            validator = PasswordValidator,
+            onTextChanged = {
+                confirmPasswordText = it
+                onPasswordConfirmTextChange(it)
+            }
         )
+        HelpsHorizontalSpacer(height = 16.dp)
         HelpsButtonSecondary(
             label = "Create an account",
             onClick = {
@@ -91,6 +118,5 @@ private fun HelpsCreateAccountScreenContent(
                 )
             }
         )
-        HelpsText(text = authState.toString())
     }
 }

@@ -10,7 +10,8 @@ interface AuthAPI {
 
         data class Success(val user: UserEntity) : Result()
 
-        data class Failure(val errorType: ErrorType, val exception: Exception?) : Result()
+        data class Failure(val errorType: ErrorType, val exception: Exception?
+        ) : Result()
 
         object PendingVerification : Result()
 

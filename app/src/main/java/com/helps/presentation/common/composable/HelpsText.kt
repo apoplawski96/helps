@@ -59,9 +59,9 @@ fun HelpsTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onTextChanged: (String) -> Unit,
+    indicatorColor: Color = HelpsTheme.colors.secondary
 ) {
     Column(
-        modifier = Modifier.padding(vertical = 24.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -80,49 +80,16 @@ fun HelpsTextField(
             },
             colors = TextFieldDefaults.textFieldColors(
                 cursorColor = HelpsTheme.colors.textOnPrimary,
-                focusedIndicatorColor = HelpsTheme.colors.secondary,
-                unfocusedIndicatorColor = HelpsTheme.colors.secondary,
+                focusedIndicatorColor = indicatorColor,
+                unfocusedIndicatorColor = indicatorColor,
                 unfocusedLabelColor = HelpsTheme.colors.secondary,
                 focusedLabelColor = HelpsTheme.colors.secondaryVariant,
                 backgroundColor = HelpsTheme.colors.primaryVariant,
                 textColor = HelpsTheme.colors.textOnPrimary,
             )
         )
-        Spacer(modifier = Modifier.height(20.dp))
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(0.5.dp)
-                .background(HelpsTheme.colors.secondary)
-        )
+        Spacer(modifier = Modifier.height(16.dp))
     }
-
-//    Column(
-//        modifier = Modifier.padding(vertical = 24.dp),
-//        verticalArrangement = Arrangement.Top,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        HelpsText(text = label)
-//        OutlinedTextField(
-//            value = text,
-//            onValueChange = onTextChanged,
-//            label = { Text(label) },
-//            visualTransformation = visualTransformation,
-//            colors = TextFieldDefaults.outlinedTextFieldColors(
-//                focusedBorderColor = Color.Transparent,
-//                unfocusedBorderColor = Color.Transparent,
-//                focusedLabelColor = Color.Transparent,
-//                unfocusedLabelColor = Color.Transparent
-//            )
-//        )
-//        Spacer(modifier = Modifier.height(20.dp))
-//        Spacer(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(0.5.dp)
-//                .background(HelpsTheme.colors.secondary)
-//        )
-//    }
 }
 
 @Composable
