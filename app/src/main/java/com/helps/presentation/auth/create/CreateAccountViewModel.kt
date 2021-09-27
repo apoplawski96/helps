@@ -22,19 +22,26 @@ class CreateAccountViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
+    private val _username: MutableStateFlow<TextInputValidation> =
+        MutableStateFlow(value = TextInputValidation.None)
+    private val _email: MutableStateFlow<TextInputValidation> =
+        MutableStateFlow(value = TextInputValidation.None)
+    private val _password: MutableStateFlow<TextInputValidation> =
+        MutableStateFlow(value = TextInputValidation.None)
+    private val _passwordConfirm: MutableStateFlow<TextInputValidation> =
+        MutableStateFlow(value = TextInputValidation.None)
 
-    private val _inputState = CreateAccountInputsState(
-        username = MutableStateFlow(value = TextInputValidation.None),
-        email = MutableStateFlow(value = TextInputValidation.None),
-        password = MutableStateFlow(value = TextInputValidation.None),
-        passwordConfirm = MutableStateFlow(value = TextInputValidation.None)
+    val inputsState: CreateAccountInputsState = CreateAccountInputsState(
+        username = _username,
+        email = _email,
+        password = _password,
+        passwordConfirm = _passwordConfirm
     )
-    val inputsState: CreateAccountInputsState = _inputState
+    val viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
 
     fun createAccount(email: String, password: String, username: String) {
 
-        if (_inputState.inputsValid().not()) return
+        if (inputsState.allInputsValid()) return
 
         viewModelScope.launch {
             userRepository.createUserWithEmailAndPassword(email, password).let { authResultFlow ->
@@ -46,19 +53,19 @@ class CreateAccountViewModel @Inject constructor(
     }
 
     fun setUsername(text: String) {
-        _inputState.username.value = UsernameValidator.getInputValidation(text)
+        _username.value = UsernameValidator.getInputValidation(text)
     }
 
     fun setEmail(text: String) {
-        _inputState.email.value = EmailValidator.getInputValidation(text)
+        _email.value = EmailValidator.getInputValidation(text)
     }
 
     fun setPassword(text: String) {
-        _inputState.password.value = PasswordValidator.getInputValidation(text)
+        _password.value = PasswordValidator.getInputValidation(text)
     }
 
     fun setConfirmPassword(text: String) {
-        _inputState.passwordConfirm.value = PasswordValidator.getInputValidation(text)
+        _passwordConfirm.value = PasswordValidator.getInputValidation(text)
     }
 
     private fun handleAuthResult(authResult: AuthAPI.Result) {
