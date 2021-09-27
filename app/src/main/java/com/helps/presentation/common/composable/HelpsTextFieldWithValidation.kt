@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.helps.domain.auth.validator.model.InputValidator
 import com.helps.domain.auth.validator.model.TextInputValidation
 import com.helps.presentation.common.theme.HelpsTheme
 
@@ -23,11 +22,12 @@ fun HelpsTextFieldWithValidation(
     leadingIcon: ImageVector,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    validator: InputValidator,
+    inputValidation: TextInputValidation = TextInputValidation.None,
+//    validator: InputValidator,
     onTextChanged: (String) -> Unit,
-    onValidationStateChanged: (TextInputValidation) -> Unit = {}
+//    onValidationStateChanged: (TextInputValidation) -> Unit = {}
 ) {
-    var inputValidationState: TextInputValidation by remember { mutableStateOf(value = TextInputValidation.None) }
+//    var inputValidationState: TextInputValidation by remember { mutableStateOf(value = TextInputValidation.None) }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -40,18 +40,16 @@ fun HelpsTextFieldWithValidation(
             leadingIcon = leadingIcon,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
-            indicatorColor = if (inputValidationState is TextInputValidation.Invalid) {
+            indicatorColor = if (inputValidation is TextInputValidation.Invalid) {
                 HelpsTheme.colors.accent
             } else {
                 HelpsTheme.colors.secondary
             },
             onTextChanged = {
                 onTextChanged(it)
-                inputValidationState = validator.getInputValidation(it)
-                onValidationStateChanged(inputValidationState)
             }
         )
-        HelpsValidationText(inputValidationState = inputValidationState)
+        HelpsValidationText(inputValidation = inputValidation)
         HelpsHorizontalSpacer(height = 16.dp)
         HelpsDivider()
         HelpsHorizontalSpacer(height = 16.dp)
@@ -60,13 +58,13 @@ fun HelpsTextFieldWithValidation(
 
 @ExperimentalAnimationApi
 @Composable
-private fun HelpsValidationText(inputValidationState: TextInputValidation) {
+private fun HelpsValidationText(inputValidation: TextInputValidation) {
     AnimatedVisibility(
-        visible = inputValidationState is TextInputValidation.Invalid
+        visible = inputValidation is TextInputValidation.Invalid
     ) {
-        if (inputValidationState is TextInputValidation.Invalid) {
+        if (inputValidation is TextInputValidation.Invalid) {
             HelpsText(
-                text = inputValidationState.message,
+                text = inputValidation.message,
                 color = HelpsTheme.colors.accent,
                 size = 10.sp
             )

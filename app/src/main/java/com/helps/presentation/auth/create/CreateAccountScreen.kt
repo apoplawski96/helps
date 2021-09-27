@@ -15,9 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.helps.domain.auth.validator.EmailValidator
-import com.helps.domain.auth.validator.PasswordValidator
-import com.helps.domain.auth.validator.UsernameValidator
+import com.helps.presentation.auth.create.model.CreateAccountInputsState
 import com.helps.presentation.common.composable.*
 import com.helps.presentation.common.theme.HelpsTheme
 
@@ -33,6 +31,7 @@ fun HelpsCreateAccountScreen(
             topBarMode = TopBarMode.WITH_BACK_NAVIGATION
         ) {
             HelpsCreateAccountScreenContent(
+                inputsState = viewModel.inputsState,
                 onPasswordTextChange = { viewModel.setPassword(it) },
                 onPasswordConfirmTextChange = { viewModel.setConfirmPassword(it) },
                 onEmailTextChange = { viewModel.setEmail(it) },
@@ -48,11 +47,12 @@ fun HelpsCreateAccountScreen(
 @ExperimentalAnimationApi
 @Composable
 private fun HelpsCreateAccountScreenContent(
+    inputsState: CreateAccountInputsState,
     onUsernameTextChange: (String) -> Unit,
     onEmailTextChange: (String) -> Unit,
     onPasswordTextChange: (String) -> Unit,
     onPasswordConfirmTextChange: (String) -> Unit,
-    onCreateAccountButtonClick: (email: String, password: String, username: String) -> Unit
+    onCreateAccountButtonClick: (email: String, password: String, username: String) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.Top,
@@ -70,7 +70,7 @@ private fun HelpsCreateAccountScreenContent(
             text = usernameText,
             label = "Username",
             leadingIcon = Icons.Default.Person,
-            validator = UsernameValidator,
+            inputValidation = inputsState.username.value,
             onTextChanged = {
                 usernameText = it
                 onUsernameTextChange(it)
@@ -80,7 +80,7 @@ private fun HelpsCreateAccountScreenContent(
             text = emailText,
             label = "Email Address",
             leadingIcon = Icons.Default.Email,
-            validator = EmailValidator,
+            inputValidation = inputsState.email.value,
             onTextChanged = {
                 emailText = it
                 onEmailTextChange(it)
@@ -90,7 +90,7 @@ private fun HelpsCreateAccountScreenContent(
             text = passwordText,
             label = "Password",
             leadingIcon = Icons.Default.Password,
-            validator = PasswordValidator,
+            inputValidation = inputsState.password.value,
             onTextChanged = {
                 passwordText = it
                 onPasswordTextChange(it)
@@ -101,7 +101,7 @@ private fun HelpsCreateAccountScreenContent(
             label = "Confirm Password",
             visualTransformation = PasswordVisualTransformation(),
             leadingIcon = Icons.Default.Password,
-            validator = PasswordValidator,
+            inputValidation = inputsState.passwordConfirm.value,
             onTextChanged = {
                 confirmPasswordText = it
                 onPasswordConfirmTextChange(it)

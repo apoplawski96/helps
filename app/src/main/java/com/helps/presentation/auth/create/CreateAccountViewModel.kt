@@ -6,6 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.helps.data.auth.service.AuthAPI
 import com.helps.domain.auth.repository.UserRepository
+import com.helps.domain.auth.validator.EmailValidator
+import com.helps.domain.auth.validator.PasswordValidator
+import com.helps.domain.auth.validator.UsernameValidator
+import com.helps.domain.auth.validator.model.TextInputValidation
+import com.helps.presentation.auth.create.model.CreateAccountInputsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -19,14 +24,17 @@ class CreateAccountViewModel @Inject constructor(
 
     val viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
 
-    private val _username = MutableStateFlow("")
-    private val _email = MutableStateFlow("")
-    private val _password = MutableStateFlow("")
-    private val _confirmPassword = MutableStateFlow("")
+    private val _inputState = CreateAccountInputsState(
+        username = MutableStateFlow(value = TextInputValidation.None),
+        email = MutableStateFlow(value = TextInputValidation.None),
+        password = MutableStateFlow(value = TextInputValidation.None),
+        passwordConfirm = MutableStateFlow(value = TextInputValidation.None)
+    )
+    val inputsState: CreateAccountInputsState = _inputState
 
     fun createAccount(email: String, password: String, username: String) {
 
-        if (email.isEmpty() || password.isEmpty() || password.length < 6) return
+        if (_inputState.inputsValid().not()) return
 
         viewModelScope.launch {
             userRepository.createUserWithEmailAndPassword(email, password).let { authResultFlow ->
@@ -37,24 +45,20 @@ class CreateAccountViewModel @Inject constructor(
         }
     }
 
-    //                navController.navigate(
-//                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
-//                )
-
     fun setUsername(text: String) {
-        _username.value = text
+        _inputState.username.value = UsernameValidator.getInputValidation(text)
     }
 
     fun setEmail(text: String) {
-        _email.value = text
+        _inputState.email.value = EmailValidator.getInputValidation(text)
     }
 
     fun setPassword(text: String) {
-        _password.value = text
+        _inputState.password.value = PasswordValidator.getInputValidation(text)
     }
 
     fun setConfirmPassword(text: String) {
-        _confirmPassword.value = text
+        _inputState.passwordConfirm.value = PasswordValidator.getInputValidation(text)
     }
 
     private fun handleAuthResult(authResult: AuthAPI.Result) {
@@ -72,3 +76,7 @@ class CreateAccountViewModel @Inject constructor(
         data class RegistrationFailure(val errorMessage: String?) : ViewState()
     }
 }
+
+//                navController.navigate(
+//                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
+//                )
