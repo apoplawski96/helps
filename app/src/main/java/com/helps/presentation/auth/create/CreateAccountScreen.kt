@@ -113,6 +113,7 @@ private fun HelpsCreateAccountScreenContent(
             onTextChanged = {
                 passwordText = it
                 onPasswordTextChange(it)
+                onPasswordConfirmTextChange(confirmPasswordText, passwordText)
             }
         )
         HelpsTextFieldWithValidation(
@@ -124,6 +125,7 @@ private fun HelpsCreateAccountScreenContent(
             onTextChanged = {
                 confirmPasswordText = it
                 onPasswordConfirmTextChange(it, passwordText)
+                onPasswordTextChange(passwordText)
             }
         )
         HelpsHorizontalSpacer(height = 16.dp)
