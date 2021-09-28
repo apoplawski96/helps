@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.helps.data.auth.service.AuthAPI
 import com.helps.domain.auth.repository.UserRepository
+import com.helps.domain.auth.validator.ConfirmPasswordValidator
 import com.helps.domain.auth.validator.EmailValidator
 import com.helps.domain.auth.validator.PasswordValidator
 import com.helps.domain.auth.validator.UsernameValidator
@@ -40,8 +41,9 @@ class CreateAccountViewModel @Inject constructor(
     val viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
 
     fun createAccount(email: String, password: String, username: String) {
+        if (inputsState.allInputsValid().not()) return
 
-        if (inputsState.allInputsValid()) return
+        viewState.value = ViewState.Loading
 
         viewModelScope.launch {
             userRepository.createUserWithEmailAndPassword(email, password).let { authResultFlow ->
@@ -64,14 +66,19 @@ class CreateAccountViewModel @Inject constructor(
         _password.value = PasswordValidator.getInputValidation(text)
     }
 
-    fun setConfirmPassword(text: String) {
-        _passwordConfirm.value = PasswordValidator.getInputValidation(text)
+    fun setConfirmPassword(confirmPasswordText: String, passwordText: String) {
+        _passwordConfirm.value =
+            ConfirmPasswordValidator.getConfirmPasswordValidation(confirmPasswordText, passwordText)
     }
 
     private fun handleAuthResult(authResult: AuthAPI.Result) {
         viewState.value = when (authResult) {
-            is AuthAPI.Result.PendingVerification -> ViewState.RegistrationSuccess
-            is AuthAPI.Result.Failure -> ViewState.RegistrationFailure(authResult.exception?.message)
+            is AuthAPI.Result.PendingVerification -> {
+                ViewState.RegistrationSuccess
+            }
+            is AuthAPI.Result.Failure -> {
+                ViewState.RegistrationFailure(authResult.exception?.message)
+            }
             else -> ViewState.Idle
         }
     }
@@ -83,7 +90,3 @@ class CreateAccountViewModel @Inject constructor(
         data class RegistrationFailure(val errorMessage: String?) : ViewState()
     }
 }
-
-//                navController.navigate(
-//                    HelpsDestinations.MainSection.BottomNavSection.homeScreen.route
-//                )

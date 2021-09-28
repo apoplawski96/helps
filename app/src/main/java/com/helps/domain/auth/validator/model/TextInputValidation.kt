@@ -15,5 +15,7 @@ sealed class TextInputValidation {
         object UsernameTooShort : Invalid(message = "Username should be minimum 3 characters.")
 
         object PasswordTooShort : Invalid(message = "Password has to be at least 6 characters.")
+
+        object PasswordsMustMatch : Invalid(message = "Passwords must be identical.")
     }
 }

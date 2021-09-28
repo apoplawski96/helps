@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.helps.presentation.common.theme.HelpsTheme
+import com.helps.presentation.common.theme.*
 
 @Composable
 fun HelpsButtonPrimary(label: String, onClick: () -> Unit) {
@@ -25,7 +25,12 @@ fun HelpsButtonSecondary(label: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButtonVariant) {
+fun HelpsButtonDisabled(label: String, onClick: () -> Unit) {
+    HelpsButton(label = label, onClick = onClick, variant = HelpsButtonVariant.DISABLED)
+}
+
+@Composable
+fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButtonVariant) {
     val buttonColors: HelpsButtonColors = when (variant) {
         HelpsButtonVariant.PRIMARY -> HelpsButtonColors(
             background = HelpsTheme.colors.primary,
@@ -35,10 +40,17 @@ private fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButton
             background = HelpsTheme.colors.secondary,
             content = HelpsTheme.colors.primary
         )
+        HelpsButtonVariant.DISABLED -> HelpsButtonColors(
+            background = HelpsThemeLightGrey.copy(0.7f),
+            content = HelpsThemeWhite
+        )
     }
 
     Button(
-        modifier = Modifier.height(50.dp).fillMaxWidth().padding(horizontal = 32.dp),
+        modifier = Modifier
+            .height(50.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 32.dp),
         onClick = onClick,
         shape = RoundedCornerShape(50),
         colors = ButtonDefaults.buttonColors(
@@ -52,7 +64,8 @@ private fun HelpsButton(label: String, onClick: () -> Unit, variant: HelpsButton
 
 private data class HelpsButtonColors(val background: Color, val content: Color)
 
-private enum class HelpsButtonVariant {
+enum class HelpsButtonVariant {
     PRIMARY,
-    SECONDARY;
+    SECONDARY,
+    DISABLED;
 }
