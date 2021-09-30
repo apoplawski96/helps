@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +28,13 @@ fun HelpsButtonSecondary(label: String, onClick: () -> Unit) {
 @Composable
 fun HelpsButtonDisabled(label: String, onClick: () -> Unit) {
     HelpsButton(label = label, onClick = onClick, variant = HelpsButtonVariant.DISABLED)
+}
+
+@Composable
+fun HelpsTextButton(label: String, onClick: () -> Unit) {
+    TextButton(onClick = onClick) {
+        HelpsText(text = label)
+    }
 }
 
 @Composable

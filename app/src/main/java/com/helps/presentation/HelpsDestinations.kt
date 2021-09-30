@@ -14,6 +14,7 @@ object HelpsDestinations {
 
         val startScreen = StartScreen
         val guestScreen = GuestScreen
+        val loginScreen = LoginScreen
         val createAccountScreen = CreateAccountScreen
     }
 
@@ -64,6 +65,13 @@ object CreateAccountScreen : HelpsScreen {
         get() = listOf()
 }
 
+object LoginScreen : HelpsScreen {
+
+    override val route: String
+        get() = "login_screen"
+    override val arguments: List<NamedNavArgument>
+        get() = listOf()
+}
 
 object HomeScreen : HelpsScreen {
 

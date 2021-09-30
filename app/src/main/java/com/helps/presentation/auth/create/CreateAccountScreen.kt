@@ -43,7 +43,8 @@ fun HelpsCreateAccountScreen(
                 onCreateAccountButtonClick = { email, password, username ->
                     viewModel.createAccount(email, password, username)
                 },
-                navigateToHome = { navController.navigate(route = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route) }
+                navigateToHome = { navController.navigate(route = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route) },
+                navigateToLogin = { navController.navigate(route = HelpsDestinations.StartSection.loginScreen.route) }
             )
         }
     }
@@ -53,6 +54,7 @@ fun HelpsCreateAccountScreen(
 @Composable
 private fun HelpsCreateAccountScreenContent(
     navigateToHome: () -> Unit,
+    navigateToLogin: () -> Unit,
     viewState: CreateAccountViewModel.ViewState,
     inputsState: CreateAccountInputsState,
     onUsernameTextChange: (String) -> Unit,
@@ -140,5 +142,6 @@ private fun HelpsCreateAccountScreenContent(
                 )
             }
         )
+        HelpsTextButton(label = "Already have an account? Log in", onClick = navigateToLogin)
     }
 }

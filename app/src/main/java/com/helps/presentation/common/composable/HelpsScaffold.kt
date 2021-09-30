@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.helps.presentation.common.theme.HelpsTheme
 
 @ExperimentalAnimationApi
 @Composable
@@ -23,8 +24,12 @@ fun HelpsBottomNavScaffold(
         bottomBar = { bottomBar?.invoke() },
         backgroundColor = Color.Transparent
     ) {
-        Box(modifier = Modifier.padding(it).background(Color.Transparent)) {
-            content(it)
+        Surface(color = HelpsTheme.colors.primary) {
+            Box(modifier = Modifier
+                .padding(it)
+                .background(Color.Transparent)) {
+                content(it)
+            }
         }
     }
 }
@@ -39,7 +44,9 @@ fun HelpsScreenScaffold(
         topBar = { if (topBarMode != TopBarMode.NONE) HelpsTopBar(navController, topBarMode) },
         backgroundColor = Color.Transparent
     ) {
-        Box(modifier = Modifier.padding(it).background(Color.Transparent)) {
+        Box(modifier = Modifier
+            .padding(it)
+            .background(Color.Transparent)) {
             content(it)
         }
     }

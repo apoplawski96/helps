@@ -12,9 +12,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.helps.presentation.auth.create.CreateAccountViewModel
 import com.helps.presentation.auth.create.HelpsCreateAccountScreen
 import com.helps.presentation.auth.guest.HelpsGuestScreen
+import com.helps.presentation.auth.login.HelpsLoginScreen
 import com.helps.presentation.helps.active.HelpsActiveScreen
 import com.helps.presentation.helps.add.HelpsAddNewScreen
 import com.helps.presentation.helps.pending.HelpsPendingScreen
@@ -45,6 +45,10 @@ fun HelpsNavHost(navController: NavHostController) {
         helpsCreateAccountScreen(
             builder = this,
             navController = navController,
+        )
+        helpsLoginScreen(
+            builder = this,
+            navController = navController
         )
 
         helpsHomeScreenBottomNavRoot(
@@ -170,6 +174,21 @@ private fun helpsCreateAccountScreen(
         route = HelpsDestinations.StartSection.createAccountScreen.route
     ) {
         HelpsCreateAccountScreen(
+            navController = navController,
+            viewModel = hiltViewModel()
+        )
+    }
+}
+
+@ExperimentalAnimationApi
+private fun helpsLoginScreen(
+    builder: NavGraphBuilder,
+    navController: NavController,
+) {
+    builder.composable(
+        route = HelpsDestinations.StartSection.loginScreen.route
+    ) {
+        HelpsLoginScreen(
             navController = navController,
             viewModel = hiltViewModel()
         )
