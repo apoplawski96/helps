@@ -27,6 +27,7 @@ fun HelpsApp(navigator: Navigator, isNetworkAvailable: Boolean) {
 
                 HelpsBottomNavScaffold(
                     navController = navController,
+                    navigator = navigator
                 ) {
                     Column() {
                         HelpsConnectivitySnackbar(isNetworkAvailable = isNetworkAvailable)

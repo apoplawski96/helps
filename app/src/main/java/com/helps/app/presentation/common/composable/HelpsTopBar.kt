@@ -21,7 +21,7 @@ enum class TopBarMode {
 }
 
 @Composable
-fun HelpsTopBar(navController: NavController, mode: TopBarMode) {
+fun HelpsTopBar(mode: TopBarMode, onBackNavigationClick: () -> Unit) {
     TopAppBar(
         elevation = 0.dp,
         backgroundColor = Color.Transparent,
@@ -30,7 +30,7 @@ fun HelpsTopBar(navController: NavController, mode: TopBarMode) {
         Column {
             ActionBar(
                 mode = mode,
-                onBackNavigationClick = { navController.popBackStack() }
+                onBackNavigationClick = onBackNavigationClick
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.helps.navigation
 
+import android.util.Log
 import com.helps.navigation.model.NavigationCommand
 import com.helps.navigation.model.NavigationDestination
 import kotlinx.coroutines.CoroutineScope
@@ -46,6 +47,8 @@ class HelpsNavigator(
     }
 
     private fun emit(command: NavigationCommand) {
+        Log.d("2137", this.toString())
+        Log.d("2137", "emit: $command")
         coroutineScope.launch {
             commands.emit(command)
         }

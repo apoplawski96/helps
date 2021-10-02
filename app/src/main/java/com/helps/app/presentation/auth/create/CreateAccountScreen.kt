@@ -14,37 +14,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.helps.app.presentation.HelpsDestinations
 import com.helps.app.presentation.auth.create.model.CreateAccountInputsState
 import com.helps.app.presentation.common.composable.*
 import com.helps.app.presentation.common.theme.HelpsTheme
+import com.helps.navigation.model.navigationDestinationOf
 
 @ExperimentalAnimationApi
 @Composable
 fun HelpsCreateAccountScreen(
-    navController: NavController,
     viewModel: CreateAccountViewModel
 ) {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsScreenScaffold(
-            navController = navController,
-            topBarMode = TopBarMode.WITH_BACK_NAVIGATION
+            topBarMode = TopBarMode.WITH_BACK_NAVIGATION,
+            onNavigateBackClick = { viewModel.navigateBack() }
         ) {
             HelpsCreateAccountScreenContent(
                 viewState = viewModel.viewState.value,
                 inputsState = viewModel.inputsState,
                 onPasswordTextChange = { viewModel.setPassword(it) },
-                onPasswordConfirmTextChange = { confirmPassword, password ->
-                    viewModel.setConfirmPassword(confirmPassword, password)
-                },
+                onPasswordConfirmTextChange = { confirmPassword, password -> viewModel.setConfirmPassword(confirmPassword, password) },
                 onEmailTextChange = { viewModel.setEmail(it) },
                 onUsernameTextChange = { viewModel.setUsername(it) },
+                onGoToLoginButtonClick = { viewModel.navigate(navigationDestinationOf(HelpsDestinations.StartSection.loginScreen.route)) },
                 onCreateAccountButtonClick = { email, password, username ->
                     viewModel.createAccount(email, password, username)
                 },
-                navigateToHome = { navController.navigate(route = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route) },
-                navigateToLogin = { navController.navigate(route = HelpsDestinations.StartSection.loginScreen.route) }
             )
         }
     }
@@ -53,22 +49,19 @@ fun HelpsCreateAccountScreen(
 @ExperimentalAnimationApi
 @Composable
 private fun HelpsCreateAccountScreenContent(
-    navigateToHome: () -> Unit,
-    navigateToLogin: () -> Unit,
     viewState: CreateAccountViewModel.ViewState,
     inputsState: CreateAccountInputsState,
     onUsernameTextChange: (String) -> Unit,
     onEmailTextChange: (String) -> Unit,
     onPasswordTextChange: (String) -> Unit,
     onPasswordConfirmTextChange: (confirmPassword: String, password: String) -> Unit,
+    onGoToLoginButtonClick: () -> Unit,
     onCreateAccountButtonClick: (email: String, password: String, username: String) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-//            .verticalScroll(state = rememberScrollState())
+        modifier = Modifier.fillMaxSize()
     ) {
         var usernameText by remember { mutableStateOf("") }
         var emailText by remember { mutableStateOf("") }
@@ -78,8 +71,6 @@ private fun HelpsCreateAccountScreenContent(
         if (viewState is CreateAccountViewModel.ViewState.RegistrationFailure) {
             HelpsText(text = viewState.errorMessage.toString())
         }
-
-        if (viewState is CreateAccountViewModel.ViewState.RegistrationSuccess) navigateToHome()
 
         HelpsCircularProgressBar(
             isDisplayed = viewState is CreateAccountViewModel.ViewState.Loading,
@@ -142,6 +133,6 @@ private fun HelpsCreateAccountScreenContent(
                 )
             }
         )
-        HelpsTextButton(label = "Already have an account? Log in", onClick = navigateToLogin)
+        HelpsTextButton(label = "Already have an account? Log in", onClick = onGoToLoginButtonClick)
     }
 }

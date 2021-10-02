@@ -1,15 +1,20 @@
 package com.helps.app.presentation.auth.login
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.helps.app.data.auth.service.AuthAPI
+import com.helps.app.domain.auth.model.AuthAPI
 import com.helps.app.domain.auth.repository.UserRepository
 import com.helps.app.domain.auth.validator.EmailValidator
 import com.helps.app.domain.auth.validator.PasswordValidator
 import com.helps.app.domain.auth.validator.model.TextInputValidation
+import com.helps.app.presentation.HelpsDestinations
 import com.helps.app.presentation.auth.login.model.LoginInputsState
+import com.helps.navigation.Navigator
+import com.helps.navigation.model.navigationDestinationOf
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -18,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _email: MutableStateFlow<TextInputValidation> =
@@ -31,12 +37,13 @@ class LoginViewModel @Inject constructor(
         password = _password
     )
 
-    val viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
+    private val _viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
+    val viewState: State<ViewState> = _viewState
 
     fun logIn(email: String, password: String) {
         if (inputsState.allInputsValid().not()) return
 
-        viewState.value = ViewState.Loading
+        _viewState.value = ViewState.Loading
 
         viewModelScope.launch {
             userRepository.signInWithEmailAndPassword(email, password).let { authResultFlow ->
@@ -56,8 +63,12 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun handleAuthResult(authResult: AuthAPI.Result) {
-        viewState.value = when (authResult) {
-            is AuthAPI.Result.PendingVerification -> {
+        Log.d("2137", authResult.toString())
+        _viewState.value = when (authResult) {
+            is AuthAPI.Result.Success -> {
+                navigator.navigate(
+                    navigationDestinationOf(route = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route)
+                )
                 ViewState.LoginSuccess
             }
             is AuthAPI.Result.Failure -> {

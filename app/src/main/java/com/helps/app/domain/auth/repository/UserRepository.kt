@@ -1,6 +1,6 @@
 package com.helps.app.domain.auth.repository
 
-import com.helps.app.data.auth.service.AuthAPI
+import com.helps.app.domain.auth.model.AuthAPI
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

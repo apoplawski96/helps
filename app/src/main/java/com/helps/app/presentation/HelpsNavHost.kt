@@ -1,5 +1,6 @@
 package com.helps.app.presentation
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +35,7 @@ fun HelpsNavHost(
     navController: NavHostController,
     navigator: Navigator
 ) {
+    Log.d("2137", navigator.toString())
     LaunchedEffect(key1 = null) {
         navigator.commands.collect() { navigationCommand ->
             handleNavigationCommand(navigationCommand, navController)
@@ -54,9 +56,7 @@ fun HelpsNavHost(
         helpsGuestScreen(
             navController = navController
         )
-        helpsCreateAccountScreen(
-            navController = navController,
-        )
+        helpsCreateAccountScreen()
         helpsLoginScreen(
             navController = navController
         )
@@ -87,6 +87,8 @@ private fun handleNavigationCommand(
     command: NavigationCommand,
     navController: NavHostController
 ) {
+    Log.d("2137 - handle", command.toString())
+
     if (command.route.isEmpty() && command !is NavigationCommand.NavigateBack) return
 
     when (command) {
@@ -192,14 +194,11 @@ private fun NavGraphBuilder.helpsGuestScreen(
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsCreateAccountScreen(
-    navController: NavController,
-) {
+private fun NavGraphBuilder.helpsCreateAccountScreen() {
     composable(
         route = CreateAccountScreen.route
     ) {
         HelpsCreateAccountScreen(
-            navController = navController,
             viewModel = hiltViewModel()
         )
     }

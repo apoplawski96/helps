@@ -23,45 +23,34 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.insets.navigationBarsPadding
 import com.helps.app.presentation.HelpsBottomNavTab
 import com.helps.app.presentation.common.theme.HelpsTheme
+import com.helps.navigation.Navigator
+import com.helps.navigation.model.navigationDestinationOf
 
 @ExperimentalAnimationApi
 @Composable
 fun HelpsBottomNavigation(
-    navController: NavController
+    navController: NavController,
+    navigator: Navigator
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route ?: ""
     val bottomNavRoutesList = HelpsBottomNavTab.getRoutesList()
-    val bottomNavEnabled = currentDestination?.route in bottomNavRoutesList
-
-    fun onBottomNavItemClicked(
-        navController: NavController,
-        destination: HelpsBottomNavTab,
-    ) {
-        navController.navigate(destination.route) {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
-            }
-            launchSingleTop = true
-            restoreState = true
-        }
-    }
+    val bottomNavEnabled = currentRoute in bottomNavRoutesList
 
     AnimatedVisibility(visible = bottomNavEnabled) {
         HelpsBottomNavigationContent(
             onBottomNavClicked = {
-                onBottomNavItemClicked(navController = navController, destination = it)
-            }
+                navigator.navigate(navigationDestinationOf(it.route))
+            },
+            currentRoute = currentRoute
         )
     }
 }
 
 @Composable
 private fun HelpsBottomNavigationContent(
-    onBottomNavClicked: (HelpsBottomNavTab) -> Unit
+    onBottomNavClicked: (HelpsBottomNavTab) -> Unit,
+    currentRoute: String
 ) {
-    var selectedIndex by remember { mutableStateOf(0) }
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -82,15 +71,21 @@ private fun HelpsBottomNavigationContent(
                 .background(HelpsTheme.colors.secondary)
                 .navigationBarsPadding()
         ) {
-            HelpsBottomNavTab.values().forEachIndexed { index, bottomNavTab ->
+            HelpsBottomNavTab.values().forEach { bottomNavTab ->
+                val currentItemRoutesList = bottomNavTab.destinationScreens.map { it.route }
+                val isSelected = currentRoute in currentItemRoutesList
+
                 HelpsBottomNavItem(
                     icon = bottomNavTab.icon,
-                    scale = if (selectedIndex == index) 1.5f else 1.0f,
-                    color = if (selectedIndex == index) HelpsTheme.colors.primaryVariant else HelpsTheme.colors.primary,
+                    scale = if (isSelected) 1.5f else 1.0f,
+                    color = if (isSelected) HelpsTheme.colors.primaryVariant else HelpsTheme.colors.primary,
                     label = bottomNavTab.label,
                     onClick = {
-                        selectedIndex = index
-                        onBottomNavClicked(bottomNavTab)
+                        if (isSelected) {
+                            return@HelpsBottomNavItem
+                        } else {
+                            onBottomNavClicked(bottomNavTab)
+                        }
                     }
                 )
             }

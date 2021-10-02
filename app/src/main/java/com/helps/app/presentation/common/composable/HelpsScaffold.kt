@@ -12,16 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.helps.app.presentation.common.theme.HelpsTheme
+import com.helps.navigation.Navigator
 
 @ExperimentalAnimationApi
 @Composable
 fun HelpsBottomNavScaffold(
     navController: NavController,
-    bottomBar: (@Composable () -> Unit)? = { HelpsBottomNavigation(navController) },
+    navigator: Navigator,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        bottomBar = { bottomBar?.invoke() },
+        bottomBar = { HelpsBottomNavigation(navController, navigator) },
         backgroundColor = Color.Transparent
     ) {
         Surface(color = HelpsTheme.colors.primary) {
@@ -36,12 +37,13 @@ fun HelpsBottomNavScaffold(
 
 @Composable
 fun HelpsScreenScaffold(
-    navController: NavController,
+    navController: NavController? = null,
     topBarMode: TopBarMode = TopBarMode.NO_BACK_NAVIGATION,
+    onNavigateBackClick: () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        topBar = { if (topBarMode != TopBarMode.NONE) HelpsTopBar(navController, topBarMode) },
+        topBar = { if (topBarMode != TopBarMode.NONE) HelpsTopBar(topBarMode, onNavigateBackClick) },
         backgroundColor = Color.Transparent
     ) {
         Box(modifier = Modifier

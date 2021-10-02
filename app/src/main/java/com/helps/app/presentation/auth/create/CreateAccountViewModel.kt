@@ -1,17 +1,22 @@
 package com.helps.app.presentation.auth.create
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.helps.app.data.auth.service.AuthAPI
+import com.helps.app.domain.auth.model.AuthAPI
 import com.helps.app.domain.auth.repository.UserRepository
 import com.helps.app.domain.auth.validator.ConfirmPasswordValidator
 import com.helps.app.domain.auth.validator.EmailValidator
 import com.helps.app.domain.auth.validator.PasswordValidator
 import com.helps.app.domain.auth.validator.UsernameValidator
 import com.helps.app.domain.auth.validator.model.TextInputValidation
+import com.helps.app.presentation.HelpsDestinations
 import com.helps.app.presentation.auth.create.model.CreateAccountInputsState
+import com.helps.navigation.Navigator
+import com.helps.navigation.model.NavigationDestination
+import com.helps.navigation.model.navigationDestinationOf
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -20,7 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateAccountViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _username: MutableStateFlow<TextInputValidation> =
@@ -38,12 +44,14 @@ class CreateAccountViewModel @Inject constructor(
         password = _password,
         passwordConfirm = _passwordConfirm
     )
-    val viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
+
+    private val _viewState: MutableState<ViewState> = mutableStateOf(ViewState.Idle)
+    val viewState: State<ViewState> = _viewState
 
     fun createAccount(email: String, password: String, username: String) {
         if (inputsState.allInputsValid().not()) return
 
-        viewState.value = ViewState.Loading
+        _viewState.value = ViewState.Loading
 
         viewModelScope.launch {
             userRepository.createUserWithEmailAndPassword(email, password).let { authResultFlow ->
@@ -71,9 +79,20 @@ class CreateAccountViewModel @Inject constructor(
             ConfirmPasswordValidator.getConfirmPasswordValidation(confirmPasswordText, passwordText)
     }
 
+    fun navigate(navigationDestination: NavigationDestination) {
+        navigator.navigate(navigationDestination)
+    }
+
+    fun navigateBack() {
+        navigator.navigateBack()
+    }
+
     private fun handleAuthResult(authResult: AuthAPI.Result) {
-        viewState.value = when (authResult) {
-            is AuthAPI.Result.PendingVerification -> {
+        _viewState.value = when (authResult) {
+            is AuthAPI.Result.Success -> {
+                navigator.navigate(
+                    navigationDestinationOf(route = HelpsDestinations.MainSection.BottomNavSection.homeScreen.route)
+                )
                 ViewState.RegistrationSuccess
             }
             is AuthAPI.Result.Failure -> {
