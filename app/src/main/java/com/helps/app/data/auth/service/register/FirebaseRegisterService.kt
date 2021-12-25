@@ -3,7 +3,7 @@ package com.helps.app.data.auth.service.register
 import com.google.firebase.auth.FirebaseAuth
 import com.helps.app.domain.auth.model.AuthAPI
 import com.helps.app.domain.auth.model.AuthErrorType
-import com.helps.app.domain.auth.model.UserEntity
+import com.helps.app.domain.auth.model.HelpsUser
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -22,9 +22,13 @@ class FirebaseRegisterService @Inject constructor(
         firebaseAuthInstance.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { firebaseAuthResult ->
                 if (firebaseAuthResult.isSuccessful) {
-                    // TODO: add username
                     trySend(
-                        element = AuthAPI.Result.success(UserEntity(id = firebaseAuthResult.result?.user?.uid.orEmpty()))
+                        element = AuthAPI.Result.success(
+                            HelpsUser(
+                                uuid = firebaseAuthResult.result?.user?.uid.orEmpty(),
+                                name = firebaseAuthResult.result?.user?.displayName.orEmpty()
+                            )
+                        )
                     )
                     close()
                 } else {

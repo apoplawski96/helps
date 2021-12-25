@@ -3,6 +3,7 @@ package com.helps.app.domain.auth.di
 import com.helps.app.data.auth.service.login.LoginAPI
 import com.helps.app.data.auth.service.logout.LogoutAPI
 import com.helps.app.data.auth.service.register.RegisterAPI
+import com.helps.app.data.auth.service.user.UserAPI
 import com.helps.app.domain.auth.model.AuthAPI
 import com.helps.app.domain.auth.repository.FirebaseUserRepository
 import com.helps.app.domain.auth.repository.UserRepository
@@ -21,7 +22,13 @@ object UserRepositoryModule {
     fun provideFirebaseUserRepository(
         loginAPI: LoginAPI,
         registerAPI: RegisterAPI,
-        logoutAPI: LogoutAPI
+        logoutAPI: LogoutAPI,
+        userAPI: UserAPI,
     ): UserRepository =
-        FirebaseUserRepository(loginAPI, registerAPI, logoutAPI)
+        FirebaseUserRepository(
+            userAPI = userAPI,
+            firebaseLoginService = loginAPI,
+            firebaseRegisterService = registerAPI,
+            firebaseLogoutService = logoutAPI
+        )
 }

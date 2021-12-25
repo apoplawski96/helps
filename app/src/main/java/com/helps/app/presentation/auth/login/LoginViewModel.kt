@@ -1,6 +1,5 @@
 package com.helps.app.presentation.auth.login
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +48,7 @@ class LoginViewModel @Inject constructor(
             userRepository.signInWithEmailAndPassword(email, password).let { authResultFlow ->
                 authResultFlow.collect { result ->
                     handleAuthResult(result)
+                    userRepository.updateUserState(result)
                 }
             }
         }
@@ -63,7 +63,6 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun handleAuthResult(authResult: AuthAPI.Result) {
-        Log.d("2137", authResult.toString())
         _viewState.value = when (authResult) {
             is AuthAPI.Result.Success -> {
                 navigator.navigate(

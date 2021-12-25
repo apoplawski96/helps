@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.helps.app.presentation.auth.create.CreateAccountViewModel
 import com.helps.app.presentation.auth.login.model.LoginInputsState
 import com.helps.app.presentation.common.composable.*
 import com.helps.app.presentation.common.theme.HelpsTheme
@@ -33,7 +34,8 @@ fun HelpsLoginScreen(
             },
             inputsState = viewModel.inputsState,
             onEmailTextChange = { viewModel.setEmail(it) },
-            onPasswordTextChange = { viewModel.setPassword(it) }
+            onPasswordTextChange = { viewModel.setPassword(it) },
+            viewState = viewModel.viewState.value
         )
     }
 }
@@ -41,6 +43,7 @@ fun HelpsLoginScreen(
 @ExperimentalAnimationApi
 @Composable
 private fun HelpsLoginScreenContent(
+    viewState: LoginViewModel.ViewState,
     onLogInClick: (email: String, password: String) -> Unit,
     inputsState: LoginInputsState,
     onEmailTextChange: (String) -> Unit,
@@ -48,6 +51,15 @@ private fun HelpsLoginScreenContent(
 ) {
     var emailText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
+
+    if (viewState is LoginViewModel.ViewState.LoginFailure) {
+        HelpsText(text = viewState.errorMessage.toString())
+    }
+
+    HelpsCircularProgressBar(
+        isDisplayed = viewState is LoginViewModel.ViewState.Loading,
+        color = HelpsTheme.colors.secondary
+    )
 
     Surface(color = HelpsTheme.colors.primary) {
         Column(

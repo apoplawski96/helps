@@ -5,7 +5,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.helps.app.domain.auth.model.AuthAPI
 import com.helps.app.domain.auth.model.AuthErrorType
-import com.helps.app.domain.auth.model.UserEntity
+import com.helps.app.domain.auth.model.HelpsUser
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,14 @@ class FirebaseLoginService @Inject constructor(
         firebaseAuthInstance.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { firebaseAuthResult: Task<AuthResult> ->
                 if (firebaseAuthResult.isSuccessful) {
-                    trySend(element = AuthAPI.Result.success(UserEntity(firebaseAuthResult.result?.user?.uid.orEmpty())))
+                    trySend(
+                        element = AuthAPI.Result.success(
+                            HelpsUser(
+                                uuid = firebaseAuthResult.result?.user?.uid.orEmpty(),
+                                name = firebaseAuthResult.result?.user?.displayName.orEmpty()
+                            )
+                        )
+                    )
                     close()
                 } else {
                     trySend(

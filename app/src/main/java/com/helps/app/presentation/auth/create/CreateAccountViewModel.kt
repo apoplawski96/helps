@@ -57,6 +57,7 @@ class CreateAccountViewModel @Inject constructor(
             userRepository.createUserWithEmailAndPassword(email, password).let { authResultFlow ->
                 authResultFlow.collect { result ->
                     handleAuthResult(result)
+                    userRepository.updateUserState(result)
                 }
             }
         }

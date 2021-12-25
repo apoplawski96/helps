@@ -7,6 +7,8 @@ import com.helps.app.data.auth.service.logout.FirebaseLogoutService
 import com.helps.app.data.auth.service.logout.LogoutAPI
 import com.helps.app.data.auth.service.register.FirebaseRegisterService
 import com.helps.app.data.auth.service.register.RegisterAPI
+import com.helps.app.data.auth.service.user.FirebaseUserService
+import com.helps.app.data.auth.service.user.UserAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,11 +22,14 @@ class FirebaseAuthModule {
     fun provideFirebaseAuthInstance(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
-    fun provideRegisterService(firebaseAuthInstance: FirebaseAuth): RegisterAPI = FirebaseRegisterService(firebaseAuthInstance)
+    fun provideRegisterService(authInstance: FirebaseAuth): RegisterAPI = FirebaseRegisterService(authInstance)
 
     @Provides
-    fun provideLoginService(firebaseAuthInstance: FirebaseAuth): LoginAPI = FirebaseLoginService(firebaseAuthInstance)
+    fun provideLoginService(authInstance: FirebaseAuth): LoginAPI = FirebaseLoginService(authInstance)
 
     @Provides
-    fun provideLogoutService(firebaseAuthInstance: FirebaseAuth): LogoutAPI = FirebaseLogoutService(firebaseAuthInstance)
+    fun provideLogoutService(authInstance: FirebaseAuth): LogoutAPI = FirebaseLogoutService(authInstance)
+
+    @Provides
+    fun provideUserService(authInstance: FirebaseAuth): UserAPI = FirebaseUserService(authInstance)
 }

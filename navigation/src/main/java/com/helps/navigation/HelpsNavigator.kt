@@ -47,8 +47,6 @@ class HelpsNavigator(
     }
 
     private fun emit(command: NavigationCommand) {
-        Log.d("2137", this.toString())
-        Log.d("2137", "emit: $command")
         coroutineScope.launch {
             commands.emit(command)
         }

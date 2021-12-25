@@ -4,7 +4,7 @@ interface AuthAPI {
 
     sealed class Result {
 
-        data class Success(val user: UserEntity) : Result()
+        data class Success(val user: HelpsUser) : Result()
 
         data class Failure(val errorType: AuthErrorType, val exception: Exception?) : Result()
 
@@ -12,7 +12,7 @@ interface AuthAPI {
 
         companion object {
 
-            fun success(user: UserEntity): Result = Success(user)
+            fun success(user: HelpsUser): Result = Success(user)
 
             fun failure(errorType: AuthErrorType, exception: Exception?): Result =
                 Failure(errorType, exception)

@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -18,6 +19,7 @@ import com.google.accompanist.navigation.animation.composable
 import com.helps.app.presentation.auth.create.HelpsCreateAccountScreen
 import com.helps.app.presentation.auth.guest.HelpsGuestScreen
 import com.helps.app.presentation.auth.login.HelpsLoginScreen
+import com.helps.app.presentation.auth.user.LocalUserState
 import com.helps.app.presentation.helps.active.HelpsActiveScreen
 import com.helps.app.presentation.helps.add.HelpsAddNewScreen
 import com.helps.app.presentation.helps.pending.HelpsPendingScreen
@@ -35,16 +37,24 @@ fun HelpsNavHost(
     navController: NavHostController,
     navigator: Navigator
 ) {
-    Log.d("2137", navigator.toString())
     LaunchedEffect(key1 = null) {
         navigator.commands.collect() { navigationCommand ->
             handleNavigationCommand(navigationCommand, navController)
         }
     }
 
+    // TODO: This feels sketchy, refactor/investigate later
+    val helpsUser = LocalUserState.current.user.collectAsState().value
+
+    val startDestination = if (helpsUser == null) {
+        StartScreen.route
+    } else {
+        HelpsDestinations.BottomNavRoots.home.route
+    }
+
     AnimatedNavHost(
         navController = navController,
-        startDestination = StartScreen.route,
+        startDestination = startDestination,
         modifier = Modifier.fillMaxSize(),
         enterTransition = { _, _ ->
             fadeIn(initialAlpha = 0.5f)
@@ -87,8 +97,6 @@ private fun handleNavigationCommand(
     command: NavigationCommand,
     navController: NavHostController
 ) {
-    Log.d("2137 - handle", command.toString())
-
     if (command.route.isEmpty() && command !is NavigationCommand.NavigateBack) return
 
     when (command) {
@@ -166,7 +174,7 @@ private fun NavGraphBuilder.helpsSettingsScreenBottomNavRoot(
         route = HelpsDestinations.BottomNavRoots.settings.route
     ) {
         composable(SettingsScreen.route) {
-            HelpsUserProfileScreen(navController = navController)
+            HelpsUserProfileScreen(navController = navController, viewModel = hiltViewModel())
         }
     }
 }
