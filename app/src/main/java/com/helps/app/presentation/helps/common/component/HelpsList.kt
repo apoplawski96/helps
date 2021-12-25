@@ -1,4 +1,4 @@
-package com.helps.app.presentation.helps
+package com.helps.app.presentation.helps.common.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.helps.app.presentation.common.composable.HelpsText
 import com.helps.app.presentation.common.theme.HelpsTheme
 import com.helps.app.presentation.common.theme.HelpsThemeGrey
-import com.helps.app.presentation.helps.model.HelpsItemContent
+import com.helps.app.presentation.helps.common.model.HelpsItemContent
 
 @Composable
 fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {

@@ -1,4 +1,4 @@
-package com.helps.app.presentation.helps.model
+package com.helps.app.presentation.helps.common.model
 
 data class HelpsItemContent(
     val id: String,

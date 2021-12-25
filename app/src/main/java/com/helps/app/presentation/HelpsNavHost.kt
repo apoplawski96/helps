@@ -1,6 +1,5 @@
 package com.helps.app.presentation
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +20,7 @@ import com.helps.app.presentation.auth.guest.HelpsGuestScreen
 import com.helps.app.presentation.auth.login.HelpsLoginScreen
 import com.helps.app.presentation.auth.user.LocalUserState
 import com.helps.app.presentation.helps.active.HelpsActiveScreen
-import com.helps.app.presentation.helps.add.HelpsAddNewScreen
+import com.helps.app.presentation.helps.add.AddHelpsScreen
 import com.helps.app.presentation.helps.pending.HelpsPendingScreen
 import com.helps.app.presentation.helps.search.HelpsSearchScreen
 import com.helps.app.presentation.home.HelpsHomeScreen
@@ -233,7 +232,7 @@ private fun NavGraphBuilder.helpsAddScreen(
     composable(
         route = AddHelpsScreen.route
     ) {
-        HelpsAddNewScreen(navController = navController)
+        AddHelpsScreen(navController = navController)
     }
 }
 
