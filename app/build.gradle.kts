@@ -79,6 +79,7 @@ dependencies {
     implementation(Dependencies.Firebase.analytics)
     implementation(Dependencies.Firebase.auth)
     implementation(Dependencies.Firebase.firestore)
+    implementation(Dependencies.Firebase.storage)
 
     implementation(Dependencies.Hilt.android)
     implementation(Dependencies.Hilt.navigation)
