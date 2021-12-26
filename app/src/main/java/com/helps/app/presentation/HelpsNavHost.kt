@@ -232,7 +232,7 @@ private fun NavGraphBuilder.helpsAddScreen(
     composable(
         route = AddHelpsScreen.route
     ) {
-        AddHelpsScreen(navController = navController)
+        AddHelpsScreen(navController = navController, viewModel = hiltViewModel())
     }
 }
 

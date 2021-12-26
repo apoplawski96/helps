@@ -17,24 +17,32 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.helps.app.domain.helps.common.model.HelpsData
 import com.helps.app.presentation.common.composable.*
 import com.helps.app.presentation.common.theme.HelpsTheme
-import com.helps.app.presentation.helps.HelpsHeader
+import com.helps.app.presentation.helps.common.component.HelpsHeader
 
 @Composable
-fun HelpsAddNewScreen(navController: NavController) {
+fun AddHelpsScreen(
+    navController: NavController,
+    viewModel: AddHelpsViewModel,
+) {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsScreenScaffold(
             navController = navController,
             topBarMode = TopBarMode.WITH_BACK_NAVIGATION
         ) {
-            HelpsAddNewScreenContent()
+            HelpsAddNewScreenContent(
+                addHelps = { viewModel.addHelps(it) }
+            )
         }
     }
 }
 
 @Composable
-private fun HelpsAddNewScreenContent() {
+private fun HelpsAddNewScreenContent(
+    addHelps: (HelpsData) -> Unit
+) {
     var messageText by remember { mutableStateOf("") }
     var hashtagsText by remember { mutableStateOf("") }
 
@@ -60,7 +68,11 @@ private fun HelpsAddNewScreenContent() {
         HelpsAddOptionsBar()
         Spacer(modifier = Modifier.height(24.dp))
         HelpsButtonSecondary(label = "Send") {
-
+            addHelps(
+                HelpsData(
+                    description = messageText,
+                )
+            )
         }
     }
 }
