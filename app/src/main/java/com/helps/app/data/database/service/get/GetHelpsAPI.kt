@@ -10,4 +10,6 @@ interface GetHelpsAPI {
     }
 
     suspend fun getAll(): Result
+
+    suspend fun getById(id: String): Result
 }
