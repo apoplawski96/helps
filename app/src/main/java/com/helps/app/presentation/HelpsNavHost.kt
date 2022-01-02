@@ -22,7 +22,7 @@ import com.helps.app.presentation.auth.user.LocalUserState
 import com.helps.app.presentation.helps.active.HelpsActiveScreen
 import com.helps.app.presentation.helps.add.AddHelpsScreen
 import com.helps.app.presentation.helps.pending.HelpsPendingScreen
-import com.helps.app.presentation.helps.search.HelpsSearchScreen
+import com.helps.app.presentation.helps.search.SearchHelpsScreen
 import com.helps.app.presentation.home.HelpsHomeScreen
 import com.helps.app.presentation.profile.HelpsUserProfileScreen
 import com.helps.app.presentation.start.welcome.HelpsWelcomeScreen
@@ -243,6 +243,6 @@ private fun NavGraphBuilder.helpsSearchScreen(
     composable(
         route = SearchHelpsScreen.route
     ) {
-        HelpsSearchScreen(navController = navController)
+        SearchHelpsScreen(navController = navController, viewModel = hiltViewModel())
     }
 }

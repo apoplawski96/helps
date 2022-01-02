@@ -12,13 +12,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddHelpsViewModel @Inject constructor(
-    private val addHelpsUseCase: AddHelpsUseCase,
+    private val addHelps: AddHelpsUseCase,
     private val userRepository: UserRepository
 ) : ViewModel() {
 
     fun addHelps(helpsData: HelpsData) {
         viewModelScope.launch {
-            addHelpsUseCase.invoke(helpsData.applyMetadata()).handleResult()
+            addHelps.invoke(helpsData.applyMetadata()).handleResult()
         }
     }
 

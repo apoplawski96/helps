@@ -1,4 +1,4 @@
-package com.helps.app.data.database.service
+package com.helps.app.data.database.service.add
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.helps.app.domain.helps.common.HelpsDatabaseConstants
@@ -7,20 +7,20 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class AddHelpsToFirestoreDatabase @Inject constructor(
+class AddHelpsFirestoreService @Inject constructor(
     firestoreInstance: FirebaseFirestore
-) : AddHelpsToDatabase {
+) : AddHelpsAPI {
 
     private val collectionName = HelpsDatabaseConstants.HelpsCollection.name
     private val collectionPath = firestoreInstance.collection(collectionName)
 
     override suspend fun invoke(
         helpsData: HelpsData,
-    ): AddHelpsToDatabase.Result = suspendCoroutine { continuation ->
+    ): AddHelpsAPI.Result = suspendCoroutine { continuation ->
         collectionPath.document(helpsData.id).set(helpsData).addOnSuccessListener {
-            continuation.resume(AddHelpsToDatabase.Result.Success)
+            continuation.resume(AddHelpsAPI.Result.Success)
         }.addOnFailureListener {
-            continuation.resume(AddHelpsToDatabase.Result.Error(it))
+            continuation.resume(AddHelpsAPI.Result.Error(it))
         }
     }
 

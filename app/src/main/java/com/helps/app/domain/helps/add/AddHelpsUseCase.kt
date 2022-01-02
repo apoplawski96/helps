@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.res.ResourcesCompat
 import com.helps.app.R
-import com.helps.app.data.database.service.AddHelpsToDatabase
+import com.helps.app.data.database.service.add.AddHelpsAPI
 import com.helps.app.data.storage.service.SaveImageAPI
 import com.helps.app.data.storage.service.StoragePathBuilder
 import com.helps.app.domain.helps.common.model.HelpsData
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class AddHelpsUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val addHelpsToDatabase: AddHelpsToDatabase,
+    private val addHelpsAPI: AddHelpsAPI,
     private val saveImageAPI: SaveImageAPI,
 ) {
 
@@ -29,10 +29,10 @@ class AddHelpsUseCase @Inject constructor(
     }
 
     suspend operator fun invoke(data: HelpsData): Result = withContext(Dispatchers.Default) {
-        val helpsId = addHelpsToDatabase.createHelpsRecordReference()
+        val helpsId = addHelpsAPI.createHelpsRecordReference()
 
         val addHelpsToDatabase = async {
-            addHelpsToDatabase(helpsData = data.assignId(helpsId).addTimestamp(Timestamp(2137)))
+            addHelpsAPI(helpsData = data.assignId(helpsId).addTimestamp(Timestamp(2137)))
         }
         val saveImageToStorage = async {
             saveImageAPI(
@@ -45,7 +45,7 @@ class AddHelpsUseCase @Inject constructor(
         val databaseResult = addHelpsToDatabase.await()
         val storageResult = saveImageToStorage.await()
 
-        if (databaseResult is AddHelpsToDatabase.Result.Error || storageResult is SaveImageAPI.Result.Error) {
+        if (databaseResult is AddHelpsAPI.Result.Error || storageResult is SaveImageAPI.Result.Error) {
             return@withContext Result.Error(Exception("Something wrong"))
         }
 
@@ -58,6 +58,7 @@ class AddHelpsUseCase @Inject constructor(
     private fun HelpsData.addTimestamp(timestamp: Timestamp): HelpsData =
         this.copy(timestamp = timestamp)
 
+    // TODO: Extract somewhere
     private fun getImageInBytesArray(): ByteArray {
         val imageRes = ResourcesCompat.getDrawable(
             context.resources,
@@ -69,6 +70,4 @@ class AddHelpsUseCase @Inject constructor(
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         return bytes.toByteArray()
     }
-
-//    private fun DocumentSnapshot?.toHelpsData(): HelpsData? = this?.toObject<HelpsData>()
 }

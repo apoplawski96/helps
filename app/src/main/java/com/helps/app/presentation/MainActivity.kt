@@ -8,7 +8,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.core.view.WindowCompat
-import com.helps.app.domain.app.ConnectivityLiveData
+import com.helps.app.domain.app.network.ConnectivityLiveData
 import com.helps.app.presentation.auth.user.LocalUserState
 import com.helps.app.presentation.auth.user.UserStateViewModel
 import com.helps.navigation.Navigator

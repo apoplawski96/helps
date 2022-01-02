@@ -1,4 +1,4 @@
-package com.helps.app.domain.app
+package com.helps.app.domain.app.network
 
 import java.io.IOException
 import java.net.InetSocketAddress

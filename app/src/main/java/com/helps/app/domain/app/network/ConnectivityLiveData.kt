@@ -1,4 +1,4 @@
-package com.helps.app.domain.app
+package com.helps.app.domain.app.network
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE

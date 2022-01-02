@@ -1,8 +1,8 @@
-package com.helps.app.data.database.service
+package com.helps.app.data.database.service.add
 
 import com.helps.app.domain.helps.common.model.HelpsData
 
-interface AddHelpsToDatabase {
+interface AddHelpsAPI {
 
     sealed class Result {
         object Success : Result()

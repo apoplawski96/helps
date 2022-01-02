@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.sp
 import com.helps.app.presentation.common.composable.HelpsText
 import com.helps.app.presentation.common.theme.HelpsTheme
 import com.helps.app.presentation.common.theme.HelpsThemeGrey
-import com.helps.app.presentation.helps.common.model.HelpsItemContent
+import com.helps.app.presentation.helps.common.model.HelpsItemUI
 
 @Composable
-fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {
+fun HelpsList(items: List<HelpsItemUI>, listHeaderText: String) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,8 +33,8 @@ fun HelpsList(items: List<HelpsItemContent>, listHeaderText: String) {
     ) {
         HelpsHeader(listHeaderText)
         LazyColumn {
-            itemsIndexed(items) { index: Int, itemContent: HelpsItemContent ->
-                HelpsItem(itemContent)
+            itemsIndexed(items) { index: Int, itemUI: HelpsItemUI ->
+                HelpsItem(itemUI)
             }
         }
     }
@@ -59,7 +59,7 @@ fun HelpsHeader(headerText: String) {
 }
 
 @Composable
-private fun HelpsItem(itemContent: HelpsItemContent) {
+private fun HelpsItem(itemUI: HelpsItemUI) {
     Card(
         backgroundColor = HelpsTheme.colors.secondaryVariant,
         elevation = 0.dp,
@@ -67,8 +67,8 @@ private fun HelpsItem(itemContent: HelpsItemContent) {
     ) {
         Column() {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                HelpsThumbnail(itemContent.imageUrl)
-                HelpsInfo(itemContent)
+                HelpsThumbnail(itemUI.imageUrl)
+                HelpsInfo(itemUI)
                 GoToButton { }
             }
             Spacer(modifier = Modifier
@@ -85,13 +85,13 @@ private fun HelpsThumbnail(imageUrl: String) {
 }
 
 @Composable
-private fun HelpsInfo(itemContent: HelpsItemContent) {
+private fun HelpsInfo(itemUI: HelpsItemUI) {
     Column() {
-        SponsoredText(isSponsored = itemContent.sponsored)
-        TitleText(title = itemContent.title)
-        SummaryText(summary = itemContent.summary)
-        LocationText(location = itemContent.location)
-        PublishedTimeText(publishedTime = itemContent.datePublished)
+        SponsoredText(isSponsored = itemUI.sponsored)
+        TitleText(title = itemUI.title)
+        SummaryText(summary = itemUI.summary)
+        LocationText(location = itemUI.location)
+        PublishedTimeText(publishedTime = itemUI.datePublished)
     }
 }
 
@@ -142,7 +142,7 @@ private fun PublishedTimeText(publishedTime: String) {
 @Preview
 private fun HelpsItemPreview() {
     HelpsItem(
-        itemContent = HelpsItemContent(
+        itemUI = HelpsItemUI(
             id = "123",
             title = "Prosze dla mnie psa wyprowadzic",
             summary = "Pies gryzie",
@@ -161,7 +161,7 @@ private fun HelpsListPreview() {
 }
 
 fun getMockItems() = listOf(
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -170,7 +170,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -179,7 +179,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -188,7 +188,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -197,7 +197,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -206,7 +206,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -215,7 +215,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -224,7 +224,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -233,7 +233,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -242,7 +242,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",
@@ -251,7 +251,7 @@ fun getMockItems() = listOf(
         sponsored = true,
         imageUrl = "jakis url jebac"
     ),
-    HelpsItemContent(
+    HelpsItemUI(
         id = "123",
         title = "Prosze dla mnie psa wyprowadzic",
         summary = "Pies gryzie",

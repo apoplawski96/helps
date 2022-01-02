@@ -1,6 +1,6 @@
 package com.helps.app.presentation.helps.common.model
 
-data class HelpsItemContent(
+data class HelpsItemUI(
     val id: String,
     val title: String,
     val summary: String,
