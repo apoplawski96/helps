@@ -23,7 +23,10 @@ fun SearchHelpsScreen(
             topBarMode = TopBarMode.WITH_BACK_NAVIGATION
         ) {
             HelpsSearchScreenContent(
-                items = viewModel.helpsList.value
+                items = viewModel.helpsList.value,
+                onItemClick = {
+                    viewModel.navigateToHelpsDetail(it)
+                }
             )
         }
     }
@@ -31,7 +34,8 @@ fun SearchHelpsScreen(
 
 @Composable
 private fun HelpsSearchScreenContent(
+    onItemClick: (id: String) -> Unit,
     items: List<HelpsItemUI>
 ) {
-    HelpsList(items = items, listHeaderText = "Want to help someone?")
+    HelpsList(items = items, listHeaderText = "Want to help someone?", onItemClick = onItemClick)
 }

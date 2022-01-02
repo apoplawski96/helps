@@ -13,12 +13,13 @@ import com.helps.app.ui.helps.common.model.HelpsItemUI
 
 @Composable
 fun HelpsDetailScreen(
+    helpsId: String?,
     viewModel: HelpsDetailViewModel,
 ) {
-    val id = ""
+    if (helpsId == null) return
 
     LaunchedEffect(key1 = null) {
-        viewModel.download(id)
+        viewModel.download(helpsId)
     }
 
     Surface(color = HelpsTheme.colors.primary) {

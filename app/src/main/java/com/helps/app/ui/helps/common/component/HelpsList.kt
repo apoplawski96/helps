@@ -1,6 +1,7 @@
 package com.helps.app.ui.helps.common.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -25,7 +26,7 @@ import com.helps.app.ui.common.theme.HelpsThemeGrey
 import com.helps.app.ui.helps.common.model.HelpsItemUI
 
 @Composable
-fun HelpsList(items: List<HelpsItemUI>, listHeaderText: String) {
+fun HelpsList(items: List<HelpsItemUI>, onItemClick: (String) -> Unit, listHeaderText: String) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -34,7 +35,7 @@ fun HelpsList(items: List<HelpsItemUI>, listHeaderText: String) {
         HelpsHeader(listHeaderText)
         LazyColumn {
             itemsIndexed(items) { index: Int, itemUI: HelpsItemUI ->
-                HelpsItem(itemUI)
+                HelpsItem(itemUI, onItemClick)
             }
         }
     }
@@ -59,22 +60,25 @@ fun HelpsHeader(headerText: String) {
 }
 
 @Composable
-private fun HelpsItem(itemUI: HelpsItemUI) {
+private fun HelpsItem(item: HelpsItemUI, onClick: (String) -> Unit) {
     Card(
         backgroundColor = HelpsTheme.colors.secondaryVariant,
         elevation = 0.dp,
-        shape = MaterialTheme.shapes.large
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.clickable { onClick(item.id) }
     ) {
-        Column() {
+        Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                HelpsThumbnail(itemUI.imageUrl)
-                HelpsInfo(itemUI)
+                HelpsThumbnail(item.imageUrl)
+                HelpsInfo(item)
                 GoToButton { }
             }
-            Spacer(modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(HelpsThemeGrey))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(HelpsThemeGrey)
+            )
         }
     }
 }
@@ -128,7 +132,11 @@ private fun LocationText(location: String) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(imageVector = Icons.Default.MyLocation, contentDescription = null, tint = Color.DarkGray)
+        Icon(
+            imageVector = Icons.Default.MyLocation,
+            contentDescription = null,
+            tint = Color.DarkGray
+        )
         HelpsText(text = location, size = 12.sp, color = Color.DarkGray)
     }
 }
@@ -142,7 +150,7 @@ private fun PublishedTimeText(publishedTime: String) {
 @Preview
 private fun HelpsItemPreview() {
     HelpsItem(
-        itemUI = HelpsItemUI(
+        item = HelpsItemUI(
             id = "123",
             title = "Prosze dla mnie psa wyprowadzic",
             summary = "Pies gryzie",
@@ -150,14 +158,15 @@ private fun HelpsItemPreview() {
             datePublished = "07/09/2020 8:15",
             sponsored = true,
             imageUrl = "jakis url jebac"
-        )
+        ),
+        onClick = {}
     )
 }
 
 @Composable
 @Preview
 private fun HelpsListPreview() {
-    HelpsList(items = getMockItems(), listHeaderText = "Want to help someone?")
+    HelpsList(items = getMockItems(), listHeaderText = "Want to help someone?", onItemClick = {})
 }
 
 fun getMockItems() = listOf(

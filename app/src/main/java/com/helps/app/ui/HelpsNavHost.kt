@@ -90,6 +90,7 @@ fun HelpsNavHost(
         helpsSearchScreen(
             navController = navController
         )
+        helpsDetailScreen()
     }
 }
 
@@ -249,12 +250,11 @@ private fun NavGraphBuilder.helpsSearchScreen(
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsDetailScreen(
-    navController: NavController
-) {
+private fun NavGraphBuilder.helpsDetailScreen() {
     composable(
         route = HelpsDetailScreen.route,
     ) {
-        HelpsDetailScreen(viewModel = hiltViewModel())
+        val helpsId = it.arguments?.getString(HelpsDetailScreen.ID_ARG_KEY)
+        HelpsDetailScreen(viewModel = hiltViewModel(), helpsId = helpsId)
     }
 }

@@ -19,5 +19,5 @@ fun HelpsPendingScreen(navController: NavController) {
 
 @Composable
 private fun HelpsPendingScreenContent() {
-    HelpsList(items = getMockItems(), listHeaderText = "Pending Helps")
+    HelpsList(items = getMockItems(), listHeaderText = "Pending Helps", onItemClick = {})
 }

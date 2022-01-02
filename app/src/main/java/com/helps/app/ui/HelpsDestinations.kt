@@ -4,6 +4,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.helps.navigation.model.NavigationDestination
+import com.helps.navigation.model.navigationDestinationOf
 
 object HelpsDestinations {
 
@@ -27,6 +28,7 @@ object HelpsDestinations {
 
         val addHelpsScreen = AddHelpsScreen
         val searchHelpsScreen = SearchHelpsScreen
+        val helpsDetailScreen = HelpsDetailScreen
     }
 
     object BottomNavRoots {
@@ -120,8 +122,15 @@ object SearchHelpsScreen : NavigationDestination {
 
 object HelpsDetailScreen : NavigationDestination {
 
+    const val ID_ARG_KEY = "id"
+
     override val route: String
-        get() = "helps_detail_screen/{id}"
+        get() = "helps_detail_screen/{$ID_ARG_KEY}"
     override val arguments: List<NamedNavArgument>
-        get() = listOf(navArgument("id") { type = NavType.StringType })
+        get() = listOf(navArgument(ID_ARG_KEY) { type = NavType.StringType })
+
+    fun destination(id: String) = navigationDestinationOf(
+        route = "helps_detail_screen/$id",
+        arguments = arguments
+    )
 }

@@ -19,5 +19,5 @@ fun HelpsActiveScreen() {
 
 @Composable
 private fun HelpsActiveScreenContent() {
-    HelpsList(items = getMockItems(), listHeaderText = "Your active Helps")
+    HelpsList(items = getMockItems(), listHeaderText = "Your active Helps", onItemClick = {})
 }

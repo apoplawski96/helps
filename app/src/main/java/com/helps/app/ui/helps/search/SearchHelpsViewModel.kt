@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.helps.app.domain.helps.common.model.HelpsData
 import com.helps.app.domain.helps.get.GetAllHelpsUseCase
+import com.helps.app.ui.HelpsDestinations
 import com.helps.app.ui.helps.common.converter.HelpsItemUIConverter
 import com.helps.app.ui.helps.common.model.HelpsItemUI
+import com.helps.navigation.HelpsNavigator
+import com.helps.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchHelpsViewModel @Inject constructor(
+    private val navigator: Navigator,
     private val getHelpsUseCase: GetAllHelpsUseCase,
     private val converter: HelpsItemUIConverter,
 ) : ViewModel() {
@@ -26,6 +30,12 @@ class SearchHelpsViewModel @Inject constructor(
         viewModelScope.launch {
             getHelpsUseCase().handleResult()
         }
+    }
+
+    fun navigateToHelpsDetail(id: String) {
+        navigator.navigate(
+            destination = HelpsDestinations.MainSection.helpsDetailScreen.destination(id)
+        )
     }
 
     private suspend fun GetAllHelpsUseCase.Result.handleResult() {
