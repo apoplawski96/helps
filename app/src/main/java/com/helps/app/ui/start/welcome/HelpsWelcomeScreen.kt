@@ -16,12 +16,12 @@ import com.helps.app.ui.common.theme.HelpsTheme
 
 @Composable
 fun HelpsWelcomeScreen(
-    navController: NavController
+    viewModel: WelcomeScreenViewModel
 ) {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsWelcomeScreenContent(
-            navigateToUserScreen = { navController.navigate(route = HelpsDestinations.StartSection.createAccountScreen.route) },
-            navigateToGuestScreen = { navController.navigate(route = HelpsDestinations.StartSection.guestScreen.route) }
+            navigateToUserScreen = { viewModel.navigate(HelpsDestinations.StartSection.createAccountScreen) },
+            navigateToGuestScreen = { viewModel.navigate(HelpsDestinations.StartSection.guestScreen) }
         )
     }
 }

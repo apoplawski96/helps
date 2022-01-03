@@ -20,7 +20,6 @@ import com.helps.app.ui.common.theme.HelpsTheme
 @ExperimentalAnimationApi
 @Composable
 fun HelpsLoginScreen(
-    navController: NavController,
     viewModel: LoginViewModel
 ) {
     HelpsScreenScaffold(

@@ -23,12 +23,12 @@ import com.helps.app.ui.common.composable.HelpsText
 import com.helps.app.ui.common.theme.HelpsTheme
 
 @Composable
-fun HelpsHomeScreen(navController: NavController) {
+fun HelpsHomeScreen(viewModel: HomeScreenViewModel) {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsScreenScaffold() {
             HelpsHomeScreenContent(
-                onAddHelpsClick = { navController.navigate(HelpsDestinations.MainSection.addHelpsScreen.route) },
-                onSearchHelpsClick = { navController.navigate(HelpsDestinations.MainSection.searchHelpsScreen.route) }
+                onAddHelpsClick = { viewModel.navigate(HelpsDestinations.MainSection.addHelpsScreen) },
+                onSearchHelpsClick = { viewModel.navigate(HelpsDestinations.MainSection.searchHelpsScreen) }
             )
         }
     }

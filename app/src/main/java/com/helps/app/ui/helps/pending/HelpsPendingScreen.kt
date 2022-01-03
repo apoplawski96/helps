@@ -9,7 +9,7 @@ import com.helps.app.ui.helps.common.component.HelpsList
 import com.helps.app.ui.helps.common.component.getMockItems
 
 @Composable
-fun HelpsPendingScreen(navController: NavController) {
+fun HelpsPendingScreen() {
     Surface(color = HelpsTheme.colors.primary) {
         HelpsScreenScaffold() {
             HelpsPendingScreenContent()

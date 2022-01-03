@@ -60,36 +60,18 @@ fun HelpsNavHost(
             fadeIn(initialAlpha = 0.5f)
         },
     ) {
-        helpsStartScreen(
-            navController = navController
-        )
-        helpsGuestScreen(
-            navController = navController
-        )
+        helpsStartScreen()
+        helpsGuestScreen(navController = navController)
         helpsCreateAccountScreen()
-        helpsLoginScreen(
-            navController = navController
-        )
+        helpsLoginScreen()
 
-        helpsHomeScreenBottomNavRoot(
-            navController = navController
-        )
-        helpsActiveScreenBottomNavRoot(
-            navController = navController
-        )
-        helpsPendingScreenBottomNavRoot(
-            navController = navController
-        )
-        helpsSettingsScreenBottomNavRoot(
-            navController = navController
-        )
+        helpsHomeScreenBottomNavRoot()
+        helpsActiveScreenBottomNavRoot()
+        helpsPendingScreenBottomNavRoot()
+        helpsSettingsScreenBottomNavRoot()
 
-        helpsAddScreen(
-            navController = navController
-        )
-        helpsSearchScreen(
-            navController = navController
-        )
+        helpsAddScreen()
+        helpsSearchScreen()
         helpsDetailScreen()
     }
 }
@@ -123,9 +105,7 @@ private fun handleNavigationCommand(
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsHomeScreenBottomNavRoot(
-    navController: NavHostController
-) {
+private fun NavGraphBuilder.helpsHomeScreenBottomNavRoot() {
     navigation(
         startDestination = HomeScreen.route,
         route = HelpsDestinations.BottomNavRoots.home.route
@@ -133,15 +113,13 @@ private fun NavGraphBuilder.helpsHomeScreenBottomNavRoot(
         composable(
             route = HomeScreen.route,
         ) {
-            HelpsHomeScreen(navController = navController)
+            HelpsHomeScreen(viewModel = hiltViewModel())
         }
     }
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsActiveScreenBottomNavRoot(
-    navController: NavHostController
-) {
+private fun NavGraphBuilder.helpsActiveScreenBottomNavRoot() {
     navigation(
         startDestination = ActiveHelpsScreen.route,
         route = HelpsDestinations.BottomNavRoots.active.route
@@ -153,23 +131,19 @@ private fun NavGraphBuilder.helpsActiveScreenBottomNavRoot(
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsPendingScreenBottomNavRoot(
-    navController: NavHostController
-) {
+private fun NavGraphBuilder.helpsPendingScreenBottomNavRoot() {
     navigation(
         startDestination = PendingHelpsScreen.route,
         route = HelpsDestinations.BottomNavRoots.pending.route
     ) {
         composable(PendingHelpsScreen.route) {
-            HelpsPendingScreen(navController = navController)
+            HelpsPendingScreen()
         }
     }
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsSettingsScreenBottomNavRoot(
-    navController: NavHostController
-) {
+private fun NavGraphBuilder.helpsSettingsScreenBottomNavRoot() {
     navigation(
         startDestination = SettingsScreen.route,
         route = HelpsDestinations.BottomNavRoots.settings.route
@@ -181,13 +155,11 @@ private fun NavGraphBuilder.helpsSettingsScreenBottomNavRoot(
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsStartScreen(
-    navController: NavController
-) {
+private fun NavGraphBuilder.helpsStartScreen() {
     composable(
         route = StartScreen.route
     ) {
-        HelpsWelcomeScreen(navController = navController)
+        HelpsWelcomeScreen(viewModel = hiltViewModel())
     }
 }
 
@@ -214,23 +186,18 @@ private fun NavGraphBuilder.helpsCreateAccountScreen() {
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsLoginScreen(
-    navController: NavController,
-) {
+private fun NavGraphBuilder.helpsLoginScreen() {
     composable(
         route = LoginScreen.route
     ) {
         HelpsLoginScreen(
-            navController = navController,
             viewModel = hiltViewModel()
         )
     }
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsAddScreen(
-    navController: NavController
-) {
+private fun NavGraphBuilder.helpsAddScreen() {
     composable(
         route = AddHelpsScreen.route
     ) {
@@ -239,9 +206,7 @@ private fun NavGraphBuilder.helpsAddScreen(
 }
 
 @ExperimentalAnimationApi
-private fun NavGraphBuilder.helpsSearchScreen(
-    navController: NavController
-) {
+private fun NavGraphBuilder.helpsSearchScreen() {
     composable(
         route = SearchHelpsScreen.route
     ) {
