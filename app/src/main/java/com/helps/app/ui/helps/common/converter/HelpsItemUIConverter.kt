@@ -8,8 +8,8 @@ class HelpsItemUIConverter @Inject constructor() {
 
     fun convertItem(item: HelpsData): HelpsItemUI = HelpsItemUI(
         id = item.id,
-        title = item.title,
-        summary = item.description,
+        title = "Potrzebna pomoc przy wniesieniu szafy",
+        summary = "Potrzebna pomoc przy wniesieniu szafy, centrum Wroclawia. Platne 50 zł od osoby, kontakt priv",
         location = item.location.value,
         datePublished = item.timestamp.value.toDisplayDate(),
         imageUrl = "", // TODO: think about it
@@ -20,5 +20,5 @@ class HelpsItemUIConverter @Inject constructor() {
         convertItem(it)
     }
 
-    private fun Long.toDisplayDate(): String = this.toString()
+    private fun Long.toDisplayDate(): String = "Today, 16:27"
 }
